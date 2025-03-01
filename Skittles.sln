@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35818.85 d17.13
+VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skittles.AppHost", "Skittles.AppHost\Skittles.AppHost.csproj", "{A93243F8-7906-4F3E-8736-104A9C393CF9}"
 EndProject
@@ -11,6 +11,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skittles.Web", "Skittles.Web\Skittles.Web.csproj", "{7C5BE990-EF9B-10B8-D4AE-94B51E56B77A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skittles.Tests", "Skittles.Tests\Skittles.Tests.csproj", "{25FEB2A9-7B72-E31C-2545-55C3FBA87EC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aspire", "Aspire", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{58303F25-47EB-422A-98E4-8AFDA0F3DBB0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0BE4E29D-DE0D-4FE7-8728-7578E3120001}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{367CFCF6-E76E-4BC6-BCA9-6859D003A530}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{39F137A4-BFF0-482E-A4C9-AD30ED9048E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +51,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A93243F8-7906-4F3E-8736-104A9C393CF9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{2A02C1F5-C9F5-4B1C-4A14-851E20FAAF09} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{291832EB-F981-2675-08F1-51D9E0BA60CE} = {367CFCF6-E76E-4BC6-BCA9-6859D003A530}
+		{7C5BE990-EF9B-10B8-D4AE-94B51E56B77A} = {58303F25-47EB-422A-98E4-8AFDA0F3DBB0}
+		{25FEB2A9-7B72-E31C-2545-55C3FBA87EC9} = {39F137A4-BFF0-482E-A4C9-AD30ED9048E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2172C529-4BBA-497F-9E92-BD7AAD6D8BBC}
