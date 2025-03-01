@@ -10,7 +10,7 @@ public class WebTests : IDisposable
     [OneTimeSetUp]
     public async Task OneTimeSetUp()
     {
-        var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.Skittles_AppHost>();
+        var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.Host>();
         appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
         {
             clientBuilder.AddStandardResilienceHandler();
@@ -19,21 +19,15 @@ public class WebTests : IDisposable
         _app = await appHost.BuildAsync();
         var resourceNotificationService = _app.Services.GetRequiredService<ResourceNotificationService>();
         await _app.StartAsync();
-        _httpClient = _app.CreateHttpClient("webfrontend");
-        await resourceNotificationService.WaitForResourceAsync("webfrontend", KnownResourceStates.Running)
+        _httpClient = _app.CreateHttpClient("blazor");
+        await resourceNotificationService.WaitForResourceAsync("blazor", KnownResourceStates.Running)
             .WaitAsync(TimeSpan.FromSeconds(30));
-    }
-
-    [OneTimeTearDown]
-    public void OneTimeTearDown()
-    {
-        Dispose();
     }
 
     [Test]
     public async Task GetWebResourceRootReturnsOkStatusCode()
     {
-        //// Act
+        // Act
         var response = await _httpClient.GetAsync("/");
 
         // Assert
@@ -58,6 +52,12 @@ public class WebTests : IDisposable
 
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
+    }
+
+    [OneTimeTearDown]
+    public void OneTimeTearDown()
+    {
+        Dispose();
     }
 
     public void Dispose()

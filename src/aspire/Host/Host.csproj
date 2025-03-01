@@ -3,6 +3,8 @@
   <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
 
   <PropertyGroup>
+    <RootNamespace>Skittles.Aspire</RootNamespace>
+    <AssemblyName>Skittles.Aspire</AssemblyName>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
