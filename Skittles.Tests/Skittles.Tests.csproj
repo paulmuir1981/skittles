@@ -20,8 +20,9 @@
     <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
   </ItemGroup>
 
+
   <ItemGroup>
-    <ProjectReference Include="..\Skittles.AppHost\Skittles.AppHost.csproj" />
+    <ProjectReference Include="..\src\aspire\Skittles.AppHost\Skittles.AppHost.csproj" />
   </ItemGroup>
 
   <ItemGroup>

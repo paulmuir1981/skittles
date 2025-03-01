@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Skittles.ServiceDefaults\Skittles.ServiceDefaults.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\src\aspire\Skittles.ServiceDefaults\Skittles.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
