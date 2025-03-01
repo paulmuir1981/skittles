@@ -1,0 +1,43 @@
+﻿@page "/players"
+@attribute [StreamRendering(true)]
+@attribute [OutputCache(Duration = 5)]
+
+@inject SkittlesApiClient SkittlesApi
+
+<PageTitle>Players</PageTitle>
+
+<h1>Players</h1>
+
+<p>This component demonstrates showing data loaded from a backend API service.</p>
+
+@if (players == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in players)
+            {
+                <tr>
+                    <td>@player.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Player[]? players;
+
+    protected override async Task OnInitializedAsync()
+    {
+        players = await SkittlesApi.GetPlayersAsync();
+    }
+}
