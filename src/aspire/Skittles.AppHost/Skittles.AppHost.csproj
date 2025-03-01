@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Skittles.ApiService\Skittles.ApiService.csproj" />
+    <ProjectReference Include="..\..\api\Skittles.ApiService\Skittles.ApiService.csproj" />
     <ProjectReference Include="..\..\apps\blazor\Skittles.Web\Skittles.Web.csproj" />
   </ItemGroup>
 
