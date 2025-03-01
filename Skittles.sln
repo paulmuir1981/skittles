@@ -4,8 +4,6 @@ VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skittles.ApiService", "Skittles.ApiService\Skittles.ApiService.csproj", "{291832EB-F981-2675-08F1-51D9E0BA60CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skittles.Tests", "Skittles.Tests\Skittles.Tests.csproj", "{25FEB2A9-7B72-E31C-2545-55C3FBA87EC9}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aspire", "Aspire", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{58303F25-47EB-422A-98E4-8AFDA0F3DBB0}"
@@ -25,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skittles.ServiceDefaults", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skittles.Web", "src\apps\blazor\Skittles.Web\Skittles.Web.csproj", "{3C238536-A852-FC73-8884-BF8F8D4F9262}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skittles.Tests", "tests\Skittles.Tests\Skittles.Tests.csproj", "{C974F037-E3ED-0526-0B8D-1FF983FFF359}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +35,6 @@ Global
 		{291832EB-F981-2675-08F1-51D9E0BA60CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{291832EB-F981-2675-08F1-51D9E0BA60CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{291832EB-F981-2675-08F1-51D9E0BA60CE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{25FEB2A9-7B72-E31C-2545-55C3FBA87EC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25FEB2A9-7B72-E31C-2545-55C3FBA87EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25FEB2A9-7B72-E31C-2545-55C3FBA87EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{25FEB2A9-7B72-E31C-2545-55C3FBA87EC9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F82F48CD-0A03-D389-A53E-CFDB019D4988}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F82F48CD-0A03-D389-A53E-CFDB019D4988}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F82F48CD-0A03-D389-A53E-CFDB019D4988}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,16 +47,20 @@ Global
 		{3C238536-A852-FC73-8884-BF8F8D4F9262}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C238536-A852-FC73-8884-BF8F8D4F9262}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C238536-A852-FC73-8884-BF8F8D4F9262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C974F037-E3ED-0526-0B8D-1FF983FFF359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C974F037-E3ED-0526-0B8D-1FF983FFF359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C974F037-E3ED-0526-0B8D-1FF983FFF359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C974F037-E3ED-0526-0B8D-1FF983FFF359}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{291832EB-F981-2675-08F1-51D9E0BA60CE} = {367CFCF6-E76E-4BC6-BCA9-6859D003A530}
-		{25FEB2A9-7B72-E31C-2545-55C3FBA87EC9} = {39F137A4-BFF0-482E-A4C9-AD30ED9048E0}
 		{F82F48CD-0A03-D389-A53E-CFDB019D4988} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{33BE509B-121A-E332-AD9A-01B9E9A5AAC8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{3C238536-A852-FC73-8884-BF8F8D4F9262} = {58303F25-47EB-422A-98E4-8AFDA0F3DBB0}
+		{C974F037-E3ED-0526-0B8D-1FF983FFF359} = {39F137A4-BFF0-482E-A4C9-AD30ED9048E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2172C529-4BBA-497F-9E92-BD7AAD6D8BBC}

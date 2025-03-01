@@ -22,7 +22,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\src\aspire\Skittles.AppHost\Skittles.AppHost.csproj" />
+    <ProjectReference Include="..\..\src\aspire\Skittles.AppHost\Skittles.AppHost.csproj" />
   </ItemGroup>
 
   <ItemGroup>
