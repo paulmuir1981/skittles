@@ -1,6 +1,6 @@
 ﻿using System.Net.Http.Json;
 
-namespace Client;
+namespace Skittles.Blazor.Client;
 
 public class SkittlesApiClient(HttpClient httpClient)
 {
