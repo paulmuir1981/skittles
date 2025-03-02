@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>Skittles.Blazor.Infrastructure</RootNamespace>
+    <AssemblyName>Skittles.Blazor.Infrastructure</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
