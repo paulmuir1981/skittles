@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\api\Skittles.ApiService\Skittles.ApiService.csproj" />
+    <ProjectReference Include="..\..\apps\blazor\Client\Client.csproj" />
     <ProjectReference Include="..\..\apps\blazor\Skittles.Web\Skittles.Web.csproj" />
   </ItemGroup>
 

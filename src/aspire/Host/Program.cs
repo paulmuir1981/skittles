@@ -11,6 +11,8 @@ builder.AddProject<Projects.Skittles_Web>("blazor")
     .WithReference(webapi)
     .WaitFor(webapi);
 
+builder.AddProject<Projects.Client>("client");
+
 using var app = builder.Build();
 
 await app.RunAsync();
