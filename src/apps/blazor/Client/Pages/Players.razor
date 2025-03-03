@@ -1,5 +1,7 @@
 ﻿@page "/players"
-@inject IApiClient Http
+@attribute [StreamRendering(true)]
+
+@inject IApiClient ApiClient
 
 <PageTitle>Players</PageTitle>
 
@@ -35,6 +37,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        players = (await Http.GetPlayers()).ToArray();
+        players = (await ApiClient.GetPlayers()).ToArray();
     }
 }

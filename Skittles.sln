@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{367CFC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{39F137A4-BFF0-482E-A4C9-AD30ED9048E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skittles.Web", "src\apps\blazor\Skittles.Web\Skittles.Web.csproj", "{3C238536-A852-FC73-8884-BF8F8D4F9262}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skittles.Tests", "tests\Skittles.Tests\Skittles.Tests.csproj", "{C974F037-E3ED-0526-0B8D-1FF983FFF359}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skittles.ApiService", "src\api\Skittles.ApiService\Skittles.ApiService.csproj", "{E320A74F-AAD8-BB15-21C0-C31678AAF107}"
@@ -41,10 +39,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3C238536-A852-FC73-8884-BF8F8D4F9262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C238536-A852-FC73-8884-BF8F8D4F9262}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C238536-A852-FC73-8884-BF8F8D4F9262}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C238536-A852-FC73-8884-BF8F8D4F9262}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C974F037-E3ED-0526-0B8D-1FF983FFF359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C974F037-E3ED-0526-0B8D-1FF983FFF359}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C974F037-E3ED-0526-0B8D-1FF983FFF359}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -82,7 +76,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{3C238536-A852-FC73-8884-BF8F8D4F9262} = {58303F25-47EB-422A-98E4-8AFDA0F3DBB0}
 		{C974F037-E3ED-0526-0B8D-1FF983FFF359} = {39F137A4-BFF0-482E-A4C9-AD30ED9048E0}
 		{E320A74F-AAD8-BB15-21C0-C31678AAF107} = {367CFCF6-E76E-4BC6-BCA9-6859D003A530}
 		{07686990-96DF-4402-6599-D9EAE1D9EF7A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
