@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Skittles.WebApi.Player.Infrastructure</RootNamespace>
+    <AssemblyName>Skittles.WebApi.Player.Infrastructure</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Player.Application\Player.Application.csproj" />
+  </ItemGroup>
+
+</Project>
