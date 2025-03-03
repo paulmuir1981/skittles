@@ -17,7 +17,7 @@ public static class Extensions
             policy.AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
-                .WithOrigins(corsOptions.AllowedOrigins.ToArray())));
+                .WithOrigins([.. corsOptions.AllowedOrigins])));
     }
 
     internal static IApplicationBuilder UseCorsPolicy(this IApplicationBuilder app)
