@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\apps\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\apps\blazor\Shared\Shared.csproj", "{648C4B6E-B0A6-48ED-B0C8-9CFFED964082}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{7FB974E4-1AC0-4CA5-85AE-889CF66A52E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\api\Framework\Infrastructure\Infrastructure.csproj", "{C383D913-A574-4174-AE29-C86AE42F1626}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,10 @@ Global
 		{648C4B6E-B0A6-48ED-B0C8-9CFFED964082}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{648C4B6E-B0A6-48ED-B0C8-9CFFED964082}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{648C4B6E-B0A6-48ED-B0C8-9CFFED964082}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C383D913-A574-4174-AE29-C86AE42F1626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C383D913-A574-4174-AE29-C86AE42F1626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C383D913-A574-4174-AE29-C86AE42F1626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C383D913-A574-4174-AE29-C86AE42F1626}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +90,8 @@ Global
 		{3280BA23-2FAA-67E1-DE74-596BAADA64A3} = {58303F25-47EB-422A-98E4-8AFDA0F3DBB0}
 		{C27B9442-9BAD-4A73-8FEB-518D3257D34A} = {58303F25-47EB-422A-98E4-8AFDA0F3DBB0}
 		{648C4B6E-B0A6-48ED-B0C8-9CFFED964082} = {58303F25-47EB-422A-98E4-8AFDA0F3DBB0}
+		{7FB974E4-1AC0-4CA5-85AE-889CF66A52E0} = {367CFCF6-E76E-4BC6-BCA9-6859D003A530}
+		{C383D913-A574-4174-AE29-C86AE42F1626} = {7FB974E4-1AC0-4CA5-85AE-889CF66A52E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2172C529-4BBA-497F-9E92-BD7AAD6D8BBC}

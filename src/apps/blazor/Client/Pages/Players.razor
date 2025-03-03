@@ -1,5 +1,5 @@
 ﻿@page "/players"
-@inject HttpClient Http
+@inject IApiClient Http
 
 <PageTitle>Players</PageTitle>
 
@@ -35,11 +35,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        players = await Http.GetFromJsonAsync<Player[]>("sample-data/players.json");
-    }
-
-    public class Player
-    {
-        public string? Name { get; set; }
+        players = (await Http.GetPlayers()).ToArray();
     }
 }

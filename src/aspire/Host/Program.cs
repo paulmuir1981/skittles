@@ -1,17 +1,22 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var cache = builder.AddRedis("cache");
+//var cache = builder.AddRedis("cache");
 
 var webapi = builder.AddProject<Projects.Skittles_ApiService>("webapi");
 
-builder.AddProject<Projects.Skittles_Web>("blazor")
+//builder.AddProject<Projects.Skittles_Web>("blazor")
+//    .WithExternalHttpEndpoints()
+//    .WithReference(cache)
+//    .WaitFor(cache)
+//    .WithReference(webapi)
+//    .WaitFor(webapi);
+
+builder.AddProject<Projects.Client>("client")
     .WithExternalHttpEndpoints()
-    .WithReference(cache)
-    .WaitFor(cache)
+//    .WithReference(cache)
+//    .WaitFor(cache)
     .WithReference(webapi)
     .WaitFor(webapi);
-
-builder.AddProject<Projects.Client>("client");
 
 using var app = builder.Build();
 

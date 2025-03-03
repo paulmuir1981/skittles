@@ -1,10 +1,10 @@
 ﻿using System.Net.Http.Json;
 
-namespace Skittles.Blazor.Client;
+namespace Skittles.Blazor.Infrastructure.Api;
 
-public class SkittlesApiClient(HttpClient httpClient)
+public class ApiClient(HttpClient httpClient) : IApiClient
 {
-    public async Task<Player[]> GetPlayersAsync(CancellationToken cancellationToken = default)
+    public async Task<ICollection<Player>> GetPlayers(CancellationToken cancellationToken = default)
     {
         List<Player>? players = null;
         //todo i don't think this is needed. example app had a maximum number and would quit after that. just deserialise the array/list/whatever
