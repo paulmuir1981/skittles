@@ -1,9 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>Skittles.WebApi.Host</RootNamespace>
+    <AssemblyName>Skittles.WebApi.Host</AssemblyName>
+    <ContainerUser>root</ContainerUser>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ContainerRepository>webapi</ContainerRepository>
+    <PublishProfile>DefaultContainer</PublishProfile>
   </PropertyGroup>
 
   <ItemGroup>
