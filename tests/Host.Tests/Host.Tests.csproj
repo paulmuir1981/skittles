@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <RootNamespace>Skittles.Aspire.Tests</RootNamespace>
+    <AssemblyName>Skittles.Aspire.Tests</AssemblyName>
   </PropertyGroup>
 
 

@@ -1,8 +1,8 @@
 using Aspire.Hosting;
 
-namespace Skittles.Tests;
+namespace Skittles.Aspire.Tests;
 
-public class WebTests : IDisposable
+public class HostTests : IDisposable
 {
     private DistributedApplication _app;
     private HttpClient _httpClient;
@@ -25,20 +25,10 @@ public class WebTests : IDisposable
     }
 
     [Test]
-    public async Task GetWebResourceRootReturnsOkStatusCode()
+    public async Task GetWebResourceRootReturnsOkStatusCode([Values("/", "/players")] string requestUri)
     {
         // Act
-        var response = await _httpClient.GetAsync("/");
-
-        // Assert
-        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-    }
-
-    [Test]
-    public async Task GetWebResourcePlayersReturnsOkStatusCode()
-    {
-        // Act
-        var response = await _httpClient.GetAsync("/players");
+        var response = await _httpClient.GetAsync(requestUri);
 
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
