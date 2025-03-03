@@ -18,7 +18,7 @@ public static class PlayerModule
             playerGroup.MapListPlayersEndpoint();
         }
     }
-    public static WebApplicationBuilder RegisterCatalogServices(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder RegisterPlayerServices(this WebApplicationBuilder builder)
     {
         ArgumentNullException.ThrowIfNull(builder);
         //builder.Services.BindDbContext<CatalogDbContext>();
@@ -27,7 +27,7 @@ public static class PlayerModule
         //builder.Services.AddKeyedScoped<IReadRepository<Product>, CatalogRepository<Product>>("catalog:products");
         return builder;
     }
-    public static WebApplication UseCatalogModule(this WebApplication app)
+    public static WebApplication UsePlayerModule(this WebApplication app)
     {
         return app;
     }

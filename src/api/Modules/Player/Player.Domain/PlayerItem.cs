@@ -1,7 +1,7 @@
 ﻿using Skittles.Framework.Core.Domain;
 using Skittles.Framework.Core.Domain.Contracts;
 
-namespace Skittles.WebApi.Catalog.Domain
+namespace Skittles.WebApi.Player.Domain
 {
     public class PlayerItem : AuditableEntity, IAggregateRoot
     {

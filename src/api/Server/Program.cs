@@ -1,28 +1,31 @@
 using Skittles.Framework.Infrastructure;
+using Skittles.WebApi.Host;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.ConfigureSkittlesFramework();
+builder.RegisterModules();
 var app = builder.Build();
 
 app.UseSkittlesFramework();
+app.UseModules();
 
-app.MapGet("/players", () =>
-{
-    var players = Enumerable.Range(1, 15).Select(index =>
-    {
-        var playerId = Guid.NewGuid();
-        var player = new Player
-        (
-            playerId,
-            $"Player {index}",
-            [], 
-            []
-        );
-        return player;
-    });
-    return players;
-})
-.WithName("GetPlayers");
+//app.MapGet("/players", () =>
+//{
+//    var players = Enumerable.Range(1, 15).Select(index =>
+//    {
+//        var playerId = Guid.NewGuid();
+//        var player = new Player
+//        (
+//            playerId,
+//            $"Player {index}",
+//            [], 
+//            []
+//        );
+//        return player;
+//    });
+//    return players;
+//})
+//.WithName("GetPlayers");
 
 app.MapDefaultEndpoints();
 

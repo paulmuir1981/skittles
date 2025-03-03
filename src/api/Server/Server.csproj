@@ -16,5 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\aspire\ServiceDefaults\ServiceDefaults.csproj" />
     <ProjectReference Include="..\Framework\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\Player\Player.Application\Player.Application.csproj" />
+    <ProjectReference Include="..\Modules\Player\Player.Infrastructure\Player.Infrastructure.csproj" />
   </ItemGroup>
 </Project>
