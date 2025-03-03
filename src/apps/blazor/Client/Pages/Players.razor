@@ -1,0 +1,42 @@
+﻿@page "/players"
+@attribute [StreamRendering(true)]
+
+@inject IApiClient ApiClient
+
+<PageTitle>Players</PageTitle>
+
+<h1>Players</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (players == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in players)
+            {
+                <tr>
+                    <td>@player.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Player[]? players;
+
+    protected override async Task OnInitializedAsync()
+    {
+        players = (await ApiClient.GetPlayers()).ToArray();
+    }
+}
