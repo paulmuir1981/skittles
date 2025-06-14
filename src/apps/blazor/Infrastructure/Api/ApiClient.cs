@@ -8,7 +8,7 @@ public class ApiClient(HttpClient httpClient) : IApiClient
     {
         List<Player>? players = null;
         //todo i don't think this is needed. example app had a maximum number and would quit after that. just deserialise the array/list/whatever
-        await foreach (var player in httpClient.GetFromJsonAsAsyncEnumerable<Player>("/players", cancellationToken))
+        await foreach (var player in httpClient.GetFromJsonAsAsyncEnumerable<Player>("api/v1/players", cancellationToken))
         {
             if (player is not null)
             {

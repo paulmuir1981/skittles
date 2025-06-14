@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Skittles.Framework.Infrastructure.Cors;
+using Skittles.Framework.Infrastructure.OpenApi;
 
 namespace Skittles.Framework.Infrastructure;
 
@@ -12,6 +13,7 @@ public static class Extensions
         ArgumentNullException.ThrowIfNull(builder);
         builder.AddServiceDefaults();
         builder.Services.AddCorsPolicy(builder.Configuration);
+        builder.Services.ConfigureOpenApi();
         builder.Services.AddProblemDetails();
         return builder;
     }
@@ -19,6 +21,7 @@ public static class Extensions
     {
         app.UseExceptionHandler();
         app.UseCorsPolicy();
+        app.UseOpenApi();
         return app;
     }
 }
