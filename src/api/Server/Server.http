@@ -4,3 +4,22 @@ GET {{Server_HostAddress}}/api/v1/players/
 Accept: application/json
 
 ###
+
+GET {{Server_HostAddress}}/swagger
+Accept: application/json
+
+###
+
+GET {{Server_HostAddress}}/swagger/index.html
+Accept: application/json
+
+###
+
+GET {{Server_HostAddress}}/health
+Accept: application/json
+
+###
+
+GET {{Server_HostAddress}}/alive
+Accept: application/json
+
