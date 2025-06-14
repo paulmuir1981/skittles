@@ -37,7 +37,8 @@ public class HostTests : IDisposable
     }
 
     [Test]
-    public async Task GetWebApiKnownUriReturnsOkStatusCode([Values("/swagger", "/swagger/index.html", "/api/v1/players")] string requestUri)
+    public async Task GetWebApiKnownUriReturnsOkStatusCode(
+        [Values("/swagger", "/swagger/index.html", "/api/v1/players", "health", "alive")] string requestUri)
     {
         // Act
         var response = await _webapiClient.GetAsync(requestUri);
