@@ -11,6 +11,7 @@ public sealed class ListPlayersHandler()
 {
     public async Task<List<PlayerResponse>> Handle(ListPlayersRequest request, CancellationToken cancellationToken)
     {
+        //todo null?
         ArgumentNullException.ThrowIfNull(request);
         //todo var list = await repository.ListAsync(cancellationToken).ConfigureAwait(false);
         var list = Enumerable.Range(1, 15).Select(
