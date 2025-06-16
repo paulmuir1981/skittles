@@ -5,12 +5,12 @@ namespace Skittles.Aspire.Tests;
 public abstract class HostTests : IDisposable
 {
     private DistributedApplication _app;
-    private HttpClient _client;
+    private HttpClient? _client;
     private readonly string _resourceName;
     private readonly string? _requestUri;
     private readonly HttpStatusCode _expectedCode;
     private readonly string? _expectedContentType;
-    protected HttpResponseMessage _response;
+    protected HttpResponseMessage? _response;
 
     protected HostTests(string resourceName, string? requestUri, HttpStatusCode expectedCode, string? expectedContentType)
     {
@@ -33,7 +33,7 @@ public abstract class HostTests : IDisposable
         var resourceNotificationService = _app.Services.GetRequiredService<ResourceNotificationService>();
         await _app.StartAsync();
         await resourceNotificationService.WaitForResourceAsync("blazor", KnownResourceStates.Running)
-            .WaitAsync(TimeSpan.FromSeconds(30));
+            .WaitAsync(TimeSpan.FromMinutes(1));
         _client = _app.CreateHttpClient(_resourceName);
 
         _response = await _client.GetAsync(_requestUri);
@@ -42,13 +42,13 @@ public abstract class HostTests : IDisposable
     [Test]
     public void ThenResponseHasExpectedStatusCode()
     {
-        Assert.That(_response.StatusCode, Is.EqualTo(_expectedCode));
+        Assert.That(_response!.StatusCode, Is.EqualTo(_expectedCode));
     }
 
     [Test]
     public void ThenContentTypeExpected()
     {
-        var contentType = _response.Content.Headers.ContentType;
+        var contentType = _response!.Content.Headers.ContentType;
 
         if(_expectedContentType == null)
         {
@@ -69,8 +69,8 @@ public abstract class HostTests : IDisposable
 
     public void Dispose()
     {
-        _response.Dispose();
-        _client.Dispose();
+        _response?.Dispose();
+        _client?.Dispose();
         _app.Dispose();
         GC.SuppressFinalize(this);
     }

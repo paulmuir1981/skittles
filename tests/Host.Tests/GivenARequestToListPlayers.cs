@@ -12,7 +12,7 @@ public class GivenARequestToListPlayers : GivenARequestToWebApi
     [Test]
     public async Task ThenContentIsExpected()
     {
-        using var contentStream = await _response.Content.ReadAsStreamAsync();
+        using var contentStream = await _response!.Content.ReadAsStreamAsync();
         var players = await JsonSerializer.DeserializeAsync<List<TestPlayerResponse>>(contentStream);
 
         Assert.That(players, Is.Not.Null);

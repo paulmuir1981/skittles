@@ -10,7 +10,7 @@ public class GivenARequestToSwagger : GivenARequestToWebApi
     [Test]
     public async Task ThenTitleIsExpected()
     {
-        var html = await _response.Content.ReadAsStringAsync();
+        var html = await _response!.Content.ReadAsStringAsync();
         Assert.That(html, Does.Contain("<title>Swagger UI</title>"));
     }
 }

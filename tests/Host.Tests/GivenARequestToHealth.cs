@@ -11,7 +11,7 @@ public class GivenARequestToHealth : GivenARequestToWebApi
     [Test]
     public async Task ThenContentIsExpected()
     {
-        var text = await _response.Content.ReadAsStringAsync();
+        var text = await _response!.Content.ReadAsStringAsync();
         Assert.That(text, Is.EqualTo("Healthy"));
     }
 }
