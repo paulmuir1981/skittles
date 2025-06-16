@@ -26,7 +26,8 @@ public abstract class HostTests : IDisposable
         var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.Host>();
         appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
         {
-            clientBuilder.AddStandardResilienceHandler();
+            //todo uncomment
+            //clientBuilder.AddStandardResilienceHandler();
         });
 
         _app = await appHost.BuildAsync();
