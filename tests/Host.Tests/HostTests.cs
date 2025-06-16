@@ -26,15 +26,14 @@ public abstract class HostTests : IDisposable
         var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.Host>();
         appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
         {
-            //todo uncomment
-            //clientBuilder.AddStandardResilienceHandler();
+            clientBuilder.AddStandardResilienceHandler();
         });
 
         _app = await appHost.BuildAsync();
         var resourceNotificationService = _app.Services.GetRequiredService<ResourceNotificationService>();
         await _app.StartAsync();
         await resourceNotificationService.WaitForResourceAsync("blazor", KnownResourceStates.Running)
-            .WaitAsync(TimeSpan.FromMinutes(1));
+            .WaitAsync(TimeSpan.FromSeconds(30));
         _client = _app.CreateHttpClient(_resourceName);
 
         _response = await _client.GetAsync(_requestUri);
