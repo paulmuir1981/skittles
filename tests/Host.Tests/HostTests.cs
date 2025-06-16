@@ -2,14 +2,26 @@ using Aspire.Hosting;
 
 namespace Skittles.Aspire.Tests;
 
-public class HostTests : IDisposable
+public abstract class HostTests : IDisposable
 {
     private DistributedApplication _app;
-    private HttpClient _blazorClient;
-    private HttpClient _webapiClient;
+    private HttpClient _client;
+    private readonly string _resourceName;
+    private readonly string? _requestUri;
+    private readonly HttpStatusCode _expectedCode;
+    private readonly string? _expectedContentType;
+    protected HttpResponseMessage _response;
+
+    protected HostTests(string resourceName, string? requestUri, HttpStatusCode expectedCode, string? expectedContentType)
+    {
+        _resourceName = resourceName;
+        _requestUri = requestUri;
+        _expectedCode = expectedCode;
+        _expectedContentType = expectedContentType;
+    }
 
     [OneTimeSetUp]
-    public async Task OneTimeSetUp()
+    public async Task WhenRequested()
     {
         var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.Host>();
         appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
@@ -20,61 +32,33 @@ public class HostTests : IDisposable
         _app = await appHost.BuildAsync();
         var resourceNotificationService = _app.Services.GetRequiredService<ResourceNotificationService>();
         await _app.StartAsync();
-        _blazorClient = _app.CreateHttpClient("blazor");
-        _webapiClient = _app.CreateHttpClient("webapi");
         await resourceNotificationService.WaitForResourceAsync("blazor", KnownResourceStates.Running)
             .WaitAsync(TimeSpan.FromSeconds(30));
+        _client = _app.CreateHttpClient(_resourceName);
+
+        _response = await _client.GetAsync(_requestUri);
     }
 
     [Test]
-    public async Task GetBlazorKnownUriReturnsOkStatusCode([Values("/", "/players")] string requestUri)
+    public void ThenResponseHasExpectedStatusCode()
     {
-        // Act
-        var response = await _blazorClient.GetAsync(requestUri);
-
-        // Assert
-        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+        Assert.That(_response.StatusCode, Is.EqualTo(_expectedCode));
     }
 
     [Test]
-    public async Task GetWebApiKnownUriReturnsOkStatusCode(
-        [Values("/swagger", "/swagger/index.html", "/api/v1/players", "health", "alive")] string requestUri)
+    public void ThenContentTypeExpected()
     {
-        // Act
-        var response = await _webapiClient.GetAsync(requestUri);
+        var contentType = _response.Content.Headers.ContentType;
 
-        // Assert
-        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-    }
+        if(_expectedContentType == null)
+        {
+            Assert.That(contentType, Is.Null);
+            return;
+        }
 
-    [Test]
-    public async Task GetWebApiRandomUriReturnsNotFoundStatusCode()
-    {
-        // Act
-        var response = await _webapiClient.GetAsync($"/{Guid.NewGuid()}");
-
-        // Assert
-        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
-    }
-
-    [Test]
-    public async Task GetWebApiBlankUriReturnsNotFoundStatusCode([Values(null, "", "/")] string? requestUri)
-    {
-        // Act
-        var response = await _webapiClient.GetAsync(requestUri);
-
-        // Assert
-        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
-    }
-
-    [Test]
-    public async Task GetWebApiUndefinedVersionReturnsNotFoundStatusCode([Values(0, 2, int.MaxValue)] int version)
-    {
-        // Act
-        var response = await _webapiClient.GetAsync($"/api/v{version}/players");
-
-        // Assert
-        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
+        Assert.That(contentType, Is.Not.Null);
+        var mediaType = contentType!.MediaType;
+        Assert.That(mediaType, Is.EqualTo(_expectedContentType));
     }
 
     [OneTimeTearDown]
@@ -85,8 +69,9 @@ public class HostTests : IDisposable
 
     public void Dispose()
     {
-        _blazorClient?.Dispose();
-        _app?.Dispose();
+        _response.Dispose();
+        _client.Dispose();
+        _app.Dispose();
         GC.SuppressFinalize(this);
     }
 }
