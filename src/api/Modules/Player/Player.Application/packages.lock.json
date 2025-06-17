@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net8.0": {
+      "Ardalis.Specification": {
+        "type": "Transitive",
+        "resolved": "9.2.0",
+        "contentHash": "bggkCJU1tLIV/hSK5s0lbyFAOLsNpiafFPfrg2/0arWhmst8Y90CWQFTNE5aVJJLV1Ja6Jdf4rogsG9mYiRUSA=="
+      },
+      "MediatR": {
+        "type": "Transitive",
+        "resolved": "12.5.0",
+        "contentHash": "vqm2H8/nqL5NAJHPhsG1JOPwfkmbVrPyh4svdoRzu+uZh6Ex7PRoHBGsLYC0/RWCEJFqD1ohHNpteQvql9OktA==",
+        "dependencies": {
+          "MediatR.Contracts": "[2.0.1, 3.0.0)",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
+        }
+      },
+      "MediatR.Contracts": {
+        "type": "Transitive",
+        "resolved": "2.0.1",
+        "contentHash": "FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ=="
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "cjWrLkJXK0rs4zofsK4bSdg+jhDLTaxrkXu4gS6Y7MAlCvRyNNgwY/lJi5RDlQOnSZweHqoyvgvbdvQsRIW+hg=="
+      },
+      "Skittles.Framework.Core": {
+        "type": "Project",
+        "dependencies": {
+          "Ardalis.Specification": "[9.2.0, )",
+          "MediatR": "[12.5.0, )"
+        }
+      },
+      "Skittles.WebApi.Player.Domain": {
+        "type": "Project",
+        "dependencies": {
+          "Skittles.Framework.Core": "[1.0.0, )"
+        }
+      }
+    }
+  }
+}
