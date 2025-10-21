@@ -1,8 +1,8 @@
 ﻿using Asp.Versioning.Conventions;
 using Carter;
-using Skittles.WebApi.Player.Application;
 using System.Reflection;
-using Skittles.WebApi.Player.Infrastructure;
+using Skittles.WebApi.Infrastructure;
+using Skittles.WebApi.Application;
 
 namespace Skittles.WebApi.Host;
 
@@ -15,7 +15,7 @@ public static class Extensions
         //define module assemblies
         var assemblies = new Assembly[]
         {
-            typeof(PlayerMetadata).Assembly
+            typeof(SkittlesMetadata).Assembly
         };
 
         //register validators
@@ -28,12 +28,12 @@ public static class Extensions
         });
 
         //register module services
-        builder.RegisterPlayerServices();
+        builder.RegisterSkittlesServices();
 
         //add carter endpoint modules
         builder.Services.AddCarter(configurator: config =>
         {
-            config.WithModule<PlayerModule.Endpoints>();
+            config.WithModule<SkittlesModule.Endpoints>();
         });
 
         return builder;
@@ -44,7 +44,7 @@ public static class Extensions
         ArgumentNullException.ThrowIfNull(app);
 
         //register modules
-        app.UsePlayerModule();
+        app.UseSkittlesModule();
 
         //register api versions
         var versions = app.NewApiVersionSet()

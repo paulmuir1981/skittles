@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Skittles.WebApi.Player.Application.Players.List.v1;
+using Skittles.WebApi.Application.Players.List.v1;
 
-namespace Skittles.WebApi.Player.Infrastructure.Endpoints.v1;
+namespace Skittles.WebApi.Infrastructure.Endpoints.v1;
 
 public static class ListPlayersEndpoint
 {
