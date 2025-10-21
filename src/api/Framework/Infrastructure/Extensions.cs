@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Skittles.Framework.Infrastructure.Cors;
 using Skittles.Framework.Infrastructure.OpenApi;
+using Skittles.Framework.Infrastructure.Persistence;
 
 namespace Skittles.Framework.Infrastructure;
 
@@ -12,6 +13,7 @@ public static class Extensions
     {
         ArgumentNullException.ThrowIfNull(builder);
         builder.AddServiceDefaults();
+        builder.ConfigureDatabase();
         builder.Services.AddCorsPolicy(builder.Configuration);
         builder.Services.ConfigureOpenApi();
         builder.Services.AddProblemDetails();
@@ -19,6 +21,7 @@ public static class Extensions
     }
     public static WebApplication UseSkittlesFramework(this WebApplication app)
     {
+        app.UseDatabase();
         app.UseExceptionHandler();
         app.UseCorsPolicy();
         app.UseOpenApi();
