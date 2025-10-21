@@ -13,14 +13,19 @@
     <PublishProfile>DefaultContainer</PublishProfile>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.19">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="OpenTelemetry.Api" Version="1.12.0" />
-    <PackageReference Include="System.Text.Json" Version="9.0.7" />
+      <PackageReference Include="System.Text.Json" Version="9.0.7" />
+      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\aspire\ServiceDefaults\ServiceDefaults.csproj" />
     <ProjectReference Include="..\Framework\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\Modules\Player\Player.Application\Player.Application.csproj" />
-    <ProjectReference Include="..\Modules\Player\Player.Infrastructure\Player.Infrastructure.csproj" />
+    <ProjectReference Include="..\Migrations\Migrations.csproj" />
+    <ProjectReference Include="..\Modules\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 </Project>

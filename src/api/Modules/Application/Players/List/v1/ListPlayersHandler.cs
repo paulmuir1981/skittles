@@ -1,18 +1,19 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Skittles.Framework.Core.Persistence;
+using Skittles.WebApi.Domain;
 
-namespace Skittles.WebApi.Player.Application.Players.List.v1;
+namespace Skittles.WebApi.Application.Players.List.v1;
 
 public sealed class ListPlayersHandler(
-    [FromKeyedServices("skittles:players")] IReadRepository<Domain.Player> repository)
+    [FromKeyedServices("skittles:players")] IReadRepository<Player> repository)
     : IRequestHandler<ListPlayersRequest, List<PlayerResponse>>
 {
     public async Task<List<PlayerResponse>> Handle(ListPlayersRequest request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
-        
-        var players = await repository.ListAsync(cancellationToken).ConfigureAwait(false);
-        return players.Select(player => new PlayerResponse(player.Id, player.Name)).ToList();
+
+        var items = await repository.ListAsync(cancellationToken).ConfigureAwait(false);
+        return [.. items.Select(player => new PlayerResponse(player.Id, player.Name))];
     }
 }
