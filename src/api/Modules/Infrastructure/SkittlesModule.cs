@@ -15,6 +15,7 @@ public static class SkittlesModule
     public class Endpoints : CarterModule
     {
         public Endpoints() : base() { }
+
         public override void AddRoutes(IEndpointRouteBuilder app)
         {
             var playerGroup = app.MapGroup("players").WithTags("players");

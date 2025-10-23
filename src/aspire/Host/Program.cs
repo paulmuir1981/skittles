@@ -1,12 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-// Add SQL Server database
-//var sqlserver = builder.AddSqlServer("sqlserver")
-//    .WithDataVolume()
-//    .AddDatabase("skittlesdb");
-
 var webapi = builder.AddProject<Projects.Server>("webapi")
-    //.WithReference(sqlserver)
     .WithUrlForEndpoint("https", url =>
     {
         url.DisplayText = "Swagger (HTTPS)";

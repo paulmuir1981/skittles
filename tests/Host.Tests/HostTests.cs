@@ -1,5 +1,3 @@
-using Aspire.Hosting;
-
 namespace Skittles.Aspire.Tests;
 
 //public abstract class HostTests : IDisposable

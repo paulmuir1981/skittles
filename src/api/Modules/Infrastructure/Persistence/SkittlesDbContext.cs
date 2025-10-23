@@ -1,6 +1,4 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
 using Skittles.Framework.Infrastructure.Persistence;
 using Skittles.WebApi.Domain;
 

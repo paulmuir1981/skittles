@@ -18,4 +18,12 @@ public class Player : AuditableEntity, IAggregateRoot
 
         return player;
     }
+
+    public Player Update(string? name)
+    {
+        if (name is not null && Name?.Equals(name, StringComparison.OrdinalIgnoreCase) is not true) Name = name;
+
+        //this.QueueDomainEvent(new PlayerUpdated() { Player = this });
+        return this;
+    }
 }

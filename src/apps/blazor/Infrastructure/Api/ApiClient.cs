@@ -4,19 +4,11 @@ namespace Skittles.Blazor.Infrastructure.Api;
 
 public class ApiClient(HttpClient httpClient) : IApiClient
 {
-    public async Task<ICollection<Player>> GetPlayers(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyCollection<Player>> GetPlayers(CancellationToken cancellationToken = default)
     {
-        List<Player>? players = null;
-        //todo i don't think this is needed. example app had a maximum number and would quit after that. just deserialise the array/list/whatever
-        await foreach (var player in httpClient.GetFromJsonAsAsyncEnumerable<Player>("api/v1/players", cancellationToken))
-        {
-            if (player is not null)
-            {
-                players ??= [];
-                players.Add(player);
-            }
-        }
-        return players?.ToArray() ?? [];
+        var message = await httpClient.GetAsync("api/v1/players", cancellationToken);
+        message.EnsureSuccessStatusCode();
+        return (await message.Content.ReadFromJsonAsync<IReadOnlyCollection<Player>>(cancellationToken)) ?? [];
     }
 }
 

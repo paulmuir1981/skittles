@@ -33,10 +33,10 @@ else
 }
 
 @code {
-    private Player[]? players;
+    private IReadOnlyCollection<Player>? players;
 
     protected override async Task OnInitializedAsync()
     {
-        players = (await ApiClient.GetPlayers()).ToArray();
+        players = await ApiClient.GetPlayers();
     }
 }

@@ -2,5 +2,5 @@
 
 public interface IApiClient
 {
-    Task<ICollection<Player>> GetPlayers(CancellationToken cancellationToken = default);
+    Task<IReadOnlyCollection<Player>> GetPlayers(CancellationToken cancellationToken = default);
 }

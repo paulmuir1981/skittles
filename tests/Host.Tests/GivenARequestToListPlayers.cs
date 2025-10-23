@@ -1,7 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-
-namespace Skittles.Aspire.Tests;
+﻿namespace Skittles.Aspire.Tests;
 
 //[TestFixture]
 //public class GivenARequestToListPlayers : GivenARequestToWebApi
