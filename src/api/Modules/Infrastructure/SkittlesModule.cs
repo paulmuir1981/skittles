@@ -20,6 +20,8 @@ public static class SkittlesModule
         {
             var playerGroup = app.MapGroup("players").WithTags("players");
             playerGroup.MapListPlayersEndpoint();
+            playerGroup.MapPlayerUpdateEndpoint();
+            playerGroup.MapPlayerDeleteEndpoint();
         }
     }
 
