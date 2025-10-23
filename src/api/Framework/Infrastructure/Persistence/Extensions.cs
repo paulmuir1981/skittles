@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Skittles.Framework.Core.Persistence;

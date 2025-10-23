@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Skittles.Framework.Core.Domain;
-using Skittles.Framework.Core.Identity.Users.Abstractions;
 
 namespace Skittles.Framework.Infrastructure.Persistence.Interceptors;
 

@@ -2,7 +2,7 @@
 
 namespace Skittles.Framework.Core.Domain;
 
-public class AuditableEntity<TId> : BaseEntity<TId>, IAuditable, ISoftDeletable
+public class AuditableEntity<TId> : BaseEntity<TId>, IAuditable
 {
     public DateTimeOffset Created { get; set; }
     public Guid CreatedBy { get; set; }
