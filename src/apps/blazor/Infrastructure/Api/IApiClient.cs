@@ -2,5 +2,9 @@
 
 public interface IApiClient
 {
-    Task<IReadOnlyCollection<Player>> GetPlayers(CancellationToken cancellationToken = default);
+    Task<Player> GetPlayer(Guid id, CancellationToken cancellationToken = default);
+    Task<IReadOnlyCollection<Player>> ListPlayers(CancellationToken cancellationToken = default);
+    Task<CreatePlayerResponse> CreatePlayer(CreatePlayer player, CancellationToken cancellationToken = default);
+    Task<UpdatePlayerResponse> UpdatePlayer(Guid id, UpdatePlayer player, CancellationToken cancellationToken = default);
+    Task DeletePlayer(Guid id, CancellationToken cancellationToken = default);
 }

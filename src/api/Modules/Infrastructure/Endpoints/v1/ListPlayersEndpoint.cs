@@ -17,8 +17,8 @@ public static class ListPlayersEndpoint
                 return Results.Ok(response);
             })
             .WithName(nameof(ListPlayersEndpoint))
-            .WithSummary("Gets a list of players")
-            .WithDescription("Gets a list of players")
+            .WithSummary("gets list of players")
+            .WithDescription("gets list of players")
             .Produces<List<PlayerResponse>>()
             .MapToApiVersion(1);
     }

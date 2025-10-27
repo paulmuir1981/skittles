@@ -3,11 +3,7 @@
 
 @inject IApiClient ApiClient
 
-<PageTitle>Players</PageTitle>
-
-<h1>Players</h1>
-
-<p>This component demonstrates fetching data from the server.</p>
+<PageHeader Title="Players" Header="Players" SubHeader="Manage your Players." />
 
 @if (players == null)
 {
@@ -37,6 +33,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        players = await ApiClient.GetPlayers();
+        players = await ApiClient.ListPlayers();
     }
 }

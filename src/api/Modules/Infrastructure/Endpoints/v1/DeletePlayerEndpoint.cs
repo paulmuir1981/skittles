@@ -8,7 +8,7 @@ namespace Skittles.WebApi.Infrastructure.Endpoints.v1;
 
 public static class DeletePlayerEndpoint
 {
-    internal static RouteHandlerBuilder MapPlayerDeleteEndpoint(this IEndpointRouteBuilder endpoints)
+    internal static RouteHandlerBuilder MapDeletePlayerEndpoint(this IEndpointRouteBuilder endpoints)
     {
         return endpoints
             .MapDelete("/{id:guid}", async (Guid id, ISender sender, CancellationToken ct) =>

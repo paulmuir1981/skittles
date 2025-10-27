@@ -8,7 +8,7 @@ namespace Skittles.WebApi.Infrastructure.Endpoints.v1;
 
 public static class UpdatePlayerEndpoint
 {
-    internal static RouteHandlerBuilder MapPlayerUpdateEndpoint(this IEndpointRouteBuilder endpoints)
+    internal static RouteHandlerBuilder MapUpdatePlayerEndpoint(this IEndpointRouteBuilder endpoints)
     {
         return endpoints
             .MapPut("/{id:guid}", async (Guid id, UpdatePlayerRequest request, ISender sender, CancellationToken ct) =>

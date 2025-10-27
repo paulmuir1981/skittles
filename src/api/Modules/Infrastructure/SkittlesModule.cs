@@ -19,9 +19,11 @@ public static class SkittlesModule
         public override void AddRoutes(IEndpointRouteBuilder app)
         {
             var playerGroup = app.MapGroup("players").WithTags("players");
+            playerGroup.MapGetPlayerEndpoint();
             playerGroup.MapListPlayersEndpoint();
-            playerGroup.MapPlayerUpdateEndpoint();
-            playerGroup.MapPlayerDeleteEndpoint();
+            playerGroup.MapCreatePlayerEndpoint();
+            playerGroup.MapUpdatePlayerEndpoint();
+            playerGroup.MapDeletePlayerEndpoint();
         }
     }
 
