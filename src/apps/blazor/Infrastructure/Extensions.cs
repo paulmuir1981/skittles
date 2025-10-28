@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MudBlazor.Services;
 using Skittles.Blazor.Infrastructure.Api;
 using System.Globalization;
 
@@ -9,6 +10,7 @@ public static class Extensions
     private const string ClientName = "Skittles.API";
     public static IServiceCollection AddClientServices(this IServiceCollection services, IConfiguration config)
     {
+        services.AddMudServices();
         services.AddTransient<IApiClient, ApiClient>();
         services.AddHttpClient(ClientName, client =>
         {

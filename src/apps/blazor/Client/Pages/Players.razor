@@ -3,7 +3,9 @@
 
 @inject IApiClient ApiClient
 
-<PageHeader Title="Players" Header="Players" SubHeader="Manage your Players." />
+<PageTitle>Players</PageTitle>
+<MudText Typo="Typo.h3" GutterBottom="true">Players</MudText>
+<MudText Class="mb-8">Manage your Players.</MudText>
 
 @if (players == null)
 {
@@ -11,21 +13,11 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var player in players)
-            {
-                <tr>
-                    <td>@player.Name</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <MudDataGrid Items="@players">
+        <Columns>
+            <PropertyColumn Property="x => x.Name" />
+        </Columns>
+    </MudDataGrid>
 }
 
 @code {
