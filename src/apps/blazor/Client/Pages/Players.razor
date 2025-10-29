@@ -1,30 +1,100 @@
 ﻿@page "/players"
 @attribute [StreamRendering(true)]
 
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
 @inject IApiClient ApiClient
 
 <PageTitle>Players</PageTitle>
 <MudText Typo="Typo.h3" GutterBottom="true">Players</MudText>
-<MudText Class="mb-8">Manage your Players.</MudText>
+<MudText Class="mb-2">Manage your Players.</MudText>
 
-@if (players == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <MudDataGrid Items="@players">
-        <Columns>
-            <PropertyColumn Property="x => x.Name" />
-        </Columns>
-    </MudDataGrid>
-}
+<MudButton Class="mb-2" 
+           Variant="Variant.Filled" 
+           StartIcon="@Icons.Material.Filled.Add" 
+           Color="Color.Success"
+           OnClick="@(() => dataGrid.SetEditingItemAsync(new(Guid.Empty, "")))">Add Player</MudButton>
+
+<MudDataGrid T="Player"
+             Items="@players" 
+             sor
+             ReadOnly=false
+             CommittedItemChanges="@CommittedItemChanges" 
+             EditMode="@DataGridEditMode.Form"
+             EditTrigger="@DataGridEditTrigger.Manual"
+             Loading="@(players == null)"
+             @ref="dataGrid">
+    <Columns>
+        <PropertyColumn Property="x => x.Name" />
+        <TemplateColumn CellClass="d-flex justify-end">
+            <CellTemplate>
+                <MudStack Row>
+                    <MudButton Variant="Variant.Filled"
+                               StartIcon="@Icons.Material.Filled.Edit"
+                               Color="Color.Warning"
+                               OnClick="@context.Actions.StartEditingItemAsync">Edit</MudButton>
+                    <MudButton Variant="Variant.Filled"
+                               StartIcon="@Icons.Material.Filled.Delete"
+                               Color="Color.Error"
+                               OnClick="@(() => DeletePlayer(@context.Item))">Delete</MudButton>
+                </MudStack>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
 
 @code {
     private IReadOnlyCollection<Player>? players;
+    private MudDataGrid<Player> dataGrid = null!;
 
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync()
+    {
+        return ListPlayers();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await dataGrid.SetSortAsync(nameof(Player.Name), SortDirection.Ascending, x => x.Name);
+        }
+    }
+
+    private async Task ListPlayers()
     {
         players = await ApiClient.ListPlayers();
+    }
+
+    private async Task CommittedItemChanges(Player player)
+    {
+        var message = player.Name;
+        if (player.Id == Guid.Empty)
+        {
+            await ApiClient.CreatePlayer(new(player.Name));
+            message += " created";
+        }
+        else
+        {
+            await ApiClient.UpdatePlayer(player.Id, new(player.Name));
+            message += " updated";
+        }
+
+        Snackbar.Add(message);
+        await ListPlayers();
+    }
+
+    private async Task DeletePlayer(Player player)
+    {
+        var parameters = new DialogParameters<DeletePlayerDialog> { { x => x.Player, player } };
+
+        var dialog = await DialogService.ShowAsync<DeletePlayerDialog>("Delete Player", parameters);
+        var result = await dialog.Result;
+
+        if (result?.Canceled == false)
+        {
+            await ListPlayers();
+        }
     }
 }

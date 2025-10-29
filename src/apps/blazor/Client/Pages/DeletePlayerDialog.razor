@@ -1,0 +1,40 @@
+﻿@inject ISnackbar Snackbar
+@inject IApiClient ApiClient
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1" />
+            Delete player?
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField Value="@Player.Name" Label="Player Name" ReadOnly="true" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   OnClick="Cancel">Cancel</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   StartIcon="@Icons.Material.Filled.Delete"
+                   Color="Color.Error"
+                   OnClick="@(() => DeletePlayer())">Delete</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter]
+    public Player Player { get; set; } = null!;
+
+    private void Cancel() => MudDialog.Cancel();
+
+    private async Task DeletePlayer()
+    {
+        await ApiClient.DeletePlayer(Player.Id);
+        Snackbar.Add($"{Player.Name} deleted");
+        MudDialog.Close(DialogResult.Ok(Player.Id));
+    }
+}
