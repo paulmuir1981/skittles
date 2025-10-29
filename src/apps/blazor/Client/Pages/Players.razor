@@ -1,6 +1,8 @@
 ﻿@page "/players"
 @attribute [StreamRendering(true)]
 
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
 @inject IApiClient ApiClient
 
 <PageTitle>Players</PageTitle>
@@ -13,15 +15,15 @@
            Color="Color.Success"
            OnClick="@(() => dataGrid.SetEditingItemAsync(new(Guid.Empty, "")))">Add Player</MudButton>
 
-
 <MudDataGrid T="Player"
-                Items="@players" 
-                ReadOnly=false
-                CommittedItemChanges="@CommittedItemChanges" 
-                EditMode="@DataGridEditMode.Form"
-                EditTrigger="@DataGridEditTrigger.Manual"
-                Loading="@(players == null)"
-                @ref="dataGrid">
+             Items="@players" 
+             sor
+             ReadOnly=false
+             CommittedItemChanges="@CommittedItemChanges" 
+             EditMode="@DataGridEditMode.Form"
+             EditTrigger="@DataGridEditTrigger.Manual"
+             Loading="@(players == null)"
+             @ref="dataGrid">
     <Columns>
         <PropertyColumn Property="x => x.Name" />
         <TemplateColumn CellClass="d-flex justify-end">
@@ -34,7 +36,7 @@
                     <MudButton Variant="Variant.Filled"
                                StartIcon="@Icons.Material.Filled.Delete"
                                Color="Color.Error"
-                               OnClick="@(() => DeletePlayer(@context.Item.Id))">Delete</MudButton>
+                               OnClick="@(() => DeletePlayer(@context.Item))">Delete</MudButton>
                 </MudStack>
             </CellTemplate>
         </TemplateColumn>
@@ -50,6 +52,16 @@
         return ListPlayers();
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await dataGrid.SetSortAsync(nameof(Player.Name), SortDirection.Ascending, x => x.Name);
+        }
+    }
+
     private async Task ListPlayers()
     {
         players = await ApiClient.ListPlayers();
@@ -57,20 +69,32 @@
 
     private async Task CommittedItemChanges(Player player)
     {
+        var message = player.Name;
         if (player.Id == Guid.Empty)
         {
             await ApiClient.CreatePlayer(new(player.Name));
+            message += " created";
         }
         else
         {
             await ApiClient.UpdatePlayer(player.Id, new(player.Name));
+            message += " updated";
         }
+
+        Snackbar.Add(message);
         await ListPlayers();
     }
 
-    private async Task DeletePlayer(Guid id)
+    private async Task DeletePlayer(Player player)
     {
-        await ApiClient.DeletePlayer(id);
-        await ListPlayers();
+        var parameters = new DialogParameters<DeletePlayerDialog> { { x => x.Player, player } };
+
+        var dialog = await DialogService.ShowAsync<DeletePlayerDialog>("Delete Player", parameters);
+        var result = await dialog.Result;
+
+        if (result?.Canceled == false)
+        {
+            await ListPlayers();
+        }
     }
 }
