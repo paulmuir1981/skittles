@@ -1,75 +1,61 @@
+using Microsoft.Extensions.Logging;
+
 namespace Skittles.Aspire.Tests;
 
-//public abstract class HostTests : IDisposable
-//{
-//    private DistributedApplication _app;
-//    private HttpClient? _client;
-//    private readonly string _resourceName;
-//    private readonly string? _requestUri;
-//    private readonly HttpStatusCode _expectedCode;
-//    private readonly string? _expectedContentType;
-//    protected HttpResponseMessage? _response;
+public abstract class HostTests
+{
+    private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(30);
 
-//    protected HostTests(string resourceName, string? requestUri, HttpStatusCode expectedCode, string? expectedContentType)
-//    {
-//        _resourceName = resourceName;
-//        _requestUri = requestUri;
-//        _expectedCode = expectedCode;
-//        _expectedContentType = expectedContentType;
-//    }
+    private readonly string _resourceName;
+    private readonly string? _requestUri;
+    private readonly HttpStatusCode _expectedCode;
+    private readonly string? _expectedContentType;
 
-//    [OneTimeSetUp]
-//    public async Task WhenRequested()
-//    {
-//        var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.Host>();
-//        appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
-//        {
-//            clientBuilder.AddStandardResilienceHandler();
-//        });
+    protected HostTests(string resourceName, string? requestUri, HttpStatusCode expectedCode, string? expectedContentType)
+    {
+        _resourceName = resourceName;
+        _requestUri = requestUri;
+        _expectedCode = expectedCode;
+        _expectedContentType = expectedContentType;
+    }
 
-//        _app = await appHost.BuildAsync();
-//        var resourceNotificationService = _app.Services.GetRequiredService<ResourceNotificationService>();
-//        await _app.StartAsync();
-//        await resourceNotificationService.WaitForResourceAsync("blazor", KnownResourceStates.Running)
-//            .WaitAsync(TimeSpan.FromSeconds(30));
-//        _client = _app.CreateHttpClient(_resourceName);
+    [Test]
+    public async Task GetWebResourceRootReturnsOkStatusCode()
+    {
+        using var cts = new CancellationTokenSource(DefaultTimeout);
+        var cancellationToken = cts.Token;
+        var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.Host>();
+        appHost.Services.AddLogging(logging =>
+        {
+            logging.SetMinimumLevel(LogLevel.Debug);
+            // Override the logging filters from the app's configuration
+            logging.AddFilter(appHost.Environment.ApplicationName, LogLevel.Debug);
+            logging.AddFilter("Aspire.", LogLevel.Debug);
+        });
+        appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
+        {
+            clientBuilder.AddStandardResilienceHandler();
+        });
 
-//        _response = await _client.GetAsync(_requestUri);
-//    }
+        await using var app = await appHost.BuildAsync(cancellationToken).WaitAsync(DefaultTimeout, cancellationToken);
+        await app.StartAsync(cancellationToken).WaitAsync(DefaultTimeout, cancellationToken);
 
-//    [Test]
-//    public void ThenResponseHasExpectedStatusCode()
-//    {
-//        Assert.That(_response!.StatusCode, Is.EqualTo(_expectedCode));
-//    }
+        using var httpClient = app.CreateHttpClient(_resourceName);
+        await app.ResourceNotifications.WaitForResourceHealthyAsync(_resourceName, cancellationToken).WaitAsync(DefaultTimeout, cancellationToken);
+        using var response = await httpClient.GetAsync(_requestUri, cancellationToken);
 
-//    [Test]
-//    public void ThenContentTypeExpected()
-//    {
-//        var contentType = _response!.Content.Headers.ContentType;
+        Assert.That(response.StatusCode, Is.EqualTo(_expectedCode));
 
-//        if(_expectedContentType == null)
-//        {
-//            Assert.That(contentType, Is.Null);
-//            return;
-//        }
+        var contentType = response.Content.Headers.ContentType;
 
-//        Assert.That(contentType, Is.Not.Null);
-//        var mediaType = contentType!.MediaType;
-//        Assert.That(mediaType, Is.EqualTo(_expectedContentType));
-//    }
+        if (_expectedContentType == null)
+        {
+            Assert.That(contentType, Is.Null);
+            return;
+        }
 
-//    [OneTimeTearDown]
-//    public void OneTimeTearDown()
-//    {
-//        Dispose();
-//    }
-
-//    public void Dispose()
-//    {
-//        _response?.Dispose();
-//        _client?.Dispose();
-//        _app.Dispose();
-//        GC.SuppressFinalize(this);
-//    }
-//}
+        Assert.That(contentType, Is.Not.Null);
+        var mediaType = contentType!.MediaType;
+        Assert.That(mediaType, Is.EqualTo(_expectedContentType));
+    }
+}
