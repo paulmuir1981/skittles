@@ -10,17 +10,24 @@ public abstract class HostTests
     private readonly string? _requestUri;
     private readonly HttpStatusCode _expectedCode;
     private readonly string? _expectedContentType;
+    private readonly string? _expectedContent;
 
-    protected HostTests(string resourceName, string? requestUri, HttpStatusCode expectedCode, string? expectedContentType)
+    protected HostTests(
+        string resourceName, 
+        string? requestUri, 
+        HttpStatusCode expectedCode, 
+        string? expectedContentType, 
+        string? expectedContent = null)
     {
         _resourceName = resourceName;
         _requestUri = requestUri;
         _expectedCode = expectedCode;
         _expectedContentType = expectedContentType;
+        _expectedContent = expectedContent;
     }
 
     [Test]
-    public async Task GetWebResourceRootReturnsOkStatusCode()
+    public async Task GetAsync_ReturnsExpected()
     {
         using var cts = new CancellationTokenSource(DefaultTimeout);
         var cancellationToken = cts.Token;
@@ -57,5 +64,11 @@ public abstract class HostTests
         Assert.That(contentType, Is.Not.Null);
         var mediaType = contentType!.MediaType;
         Assert.That(mediaType, Is.EqualTo(_expectedContentType));
+
+        if (_expectedContent != null)
+        {
+            var content = await response.Content.ReadAsStringAsync(cancellationToken);
+            Assert.That(content, Is.EqualTo(_expectedContent));
+        }
     }
 }
