@@ -2,4 +2,5 @@
 
 namespace Skittles.WebApi.Application.Players.Create.v1;
 
-public sealed record CreatePlayerRequest(string? Name) : IRequest<CreatePlayerResponse>;
+public sealed record CreatePlayerRequest(string? Name, string? Nickname, bool CanDrive) : IRequest<CreatePlayerResponse>
+{ }
