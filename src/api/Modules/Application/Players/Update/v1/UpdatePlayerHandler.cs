@@ -18,8 +18,8 @@ public sealed class UpdatePlayerHandler(
         var player = await repository.GetByIdAsync(request.Id, cancellationToken) 
             ?? throw new PlayerNotFoundException(request.Id);
 
-        var updatedProduct = player.Update(request.Name);
-        await repository.UpdateAsync(updatedProduct, cancellationToken);
+        var updatedPlayer = player.Update(request.Name, request.Nickname, request.CanDrive);
+        await repository.UpdateAsync(updatedPlayer, cancellationToken);
         logger.LogInformation("player with id : {PlayerId} updated.", player.Id);
 
         return new UpdatePlayerResponse(player.Id);

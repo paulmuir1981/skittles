@@ -13,19 +13,29 @@
            Variant="Variant.Filled" 
            StartIcon="@Icons.Material.Filled.Add" 
            Color="Color.Success"
-           OnClick="@(() => dataGrid.SetEditingItemAsync(new(Guid.Empty, "")))">Add Player</MudButton>
+           OnClick="@(() => dataGrid.SetEditingItemAsync(new(Guid.Empty, "", "")))">Add Player</MudButton>
 
 <MudDataGrid T="Player"
              Items="@players" 
-             sor
              ReadOnly=false
              CommittedItemChanges="@CommittedItemChanges" 
              EditMode="@DataGridEditMode.Form"
              EditTrigger="@DataGridEditTrigger.Manual"
              Loading="@(players == null)"
+             Filterable=true
+             FilterCaseSensitivity="@DataGridFilterCaseSensitivity.CaseInsensitive"
              @ref="dataGrid">
     <Columns>
         <PropertyColumn Property="x => x.Name" />
+        <PropertyColumn Property="x => x.Nickname" />
+        <TemplateColumn Title="Can Drive?" SortBy="x => x.CanDrive" Sortable="true" ShowColumnOptions="true">
+            <CellTemplate>
+                <MudCheckBox @bind-Value=context.Item.CanDrive ReadOnly="true" />
+            </CellTemplate>
+            <EditTemplate>
+                <MudCheckBox @bind-Value=context.Item.CanDrive Label="Can Drive?" />
+            </EditTemplate>
+        </TemplateColumn>
         <TemplateColumn CellClass="d-flex justify-end">
             <CellTemplate>
                 <MudStack Row>
@@ -58,7 +68,7 @@
 
         if (firstRender)
         {
-            await dataGrid.SetSortAsync(nameof(Player.Name), SortDirection.Ascending, x => x.Name);
+            await dataGrid.SetSortAsync(nameof(Player.Nickname), SortDirection.Ascending, x => x.Nickname);
         }
     }
 
@@ -69,15 +79,15 @@
 
     private async Task CommittedItemChanges(Player player)
     {
-        var message = player.Name;
+        var message = player.Nickname;
         if (player.Id == Guid.Empty)
         {
-            await ApiClient.CreatePlayer(new(player.Name));
+            await ApiClient.CreatePlayer(new(player.Name, player.Nickname, player.CanDrive));
             message += " created";
         }
         else
         {
-            await ApiClient.UpdatePlayer(player.Id, new(player.Name));
+            await ApiClient.UpdatePlayer(player.Id, new(player.Name, player.Nickname, player.CanDrive));
             message += " updated";
         }
 

@@ -14,6 +14,6 @@ public sealed class ListPlayersHandler(
         ArgumentNullException.ThrowIfNull(request);
 
         var items = await repository.ListAsync(cancellationToken).ConfigureAwait(false);
-        return [.. items.Select(player => new PlayerResponse(player.Id, player.Name))];
+        return [.. items.Select(player => new PlayerResponse(player.Id, player.Name, player.Nickname, player.CanDrive))];
     }
 }

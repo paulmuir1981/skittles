@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skittles.WebApi.Infrastructure;
 
@@ -11,9 +12,11 @@ using Skittles.WebApi.Infrastructure;
 namespace Skittles.WebApi.Migrations.Migrations
 {
     [DbContext(typeof(SkittlesDbContext))]
-    partial class SkittlesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251101163002_AddPlayerNickname")]
+    partial class AddPlayerNickname
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,9 +31,6 @@ namespace Skittles.WebApi.Migrations.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("CanDrive")
-                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("datetimeoffset");

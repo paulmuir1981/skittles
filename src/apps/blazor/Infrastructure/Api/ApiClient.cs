@@ -66,8 +66,11 @@ internal class ApiException : Exception
     }
 }
 
-public record Player(Guid Id, string Name);
-public record CreatePlayer(string Name);
-public record CreatePlayerResponse(Guid Id, string Name);
-public record UpdatePlayer(string Name);
-public record UpdatePlayerResponse(Guid Id, string Name);
+public record Player(Guid Id, string Name, string Nickname)
+{
+    public bool CanDrive { get; set; }
+}
+public record CreatePlayer(string Name, string Nickname, bool CanDrive);
+public record CreatePlayerResponse(Guid Id, string Name, string Nickname, bool CanDrive);
+public record UpdatePlayer(string Name, string Nickname, bool CanDrive);
+public record UpdatePlayerResponse(Guid Id, string Name, string Nickname, bool CanDrive);

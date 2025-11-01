@@ -10,13 +10,12 @@
     </TitleContent>
     <DialogContent>
         <MudTextField Value="@Player.Name" Label="Player Name" ReadOnly="true" />
+        <MudTextField Value="@Player.Nickname" Label="Player Nickname" ReadOnly="true" />
     </DialogContent>
     <DialogActions>
         <MudButton Variant="Variant.Filled"
-                   StartIcon="@Icons.Material.Filled.Cancel"
                    OnClick="Cancel">Cancel</MudButton>
         <MudButton Variant="Variant.Filled"
-                   StartIcon="@Icons.Material.Filled.Delete"
                    Color="Color.Error"
                    OnClick="@(() => DeletePlayer())">Delete</MudButton>
     </DialogActions>
