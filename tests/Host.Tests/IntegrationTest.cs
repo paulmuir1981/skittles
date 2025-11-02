@@ -7,7 +7,7 @@ public class IntegrationTest
     private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(30);
 
     [Test]
-    public async Task GetWebResourceRootReturnsOkStatusCode()
+    public async Task GetAsync_BlazorRoot_ReturnsOkStatusCode()
     {
         using var cts = new CancellationTokenSource(DefaultTimeout);
         var cancellationToken = cts.Token;
