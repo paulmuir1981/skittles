@@ -7,6 +7,7 @@ using Skittles.Framework.Core.Persistence;
 using Skittles.Framework.Infrastructure.Persistence;
 using Skittles.WebApi.Domain;
 using Skittles.WebApi.Infrastructure.Endpoints.v1;
+using Skittles.WebApi.Infrastructure.Persistence;
 
 namespace Skittles.WebApi.Infrastructure;
 

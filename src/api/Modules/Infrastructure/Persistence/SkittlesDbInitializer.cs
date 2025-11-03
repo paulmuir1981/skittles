@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Skittles.Framework.Core.Persistence;
 using Skittles.WebApi.Domain;
+using Skittles.WebApi.Infrastructure.Persistence;
 
 namespace Skittles.WebApi.Infrastructure;
 
