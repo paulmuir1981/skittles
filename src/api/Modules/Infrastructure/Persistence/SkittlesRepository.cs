@@ -1,6 +1,7 @@
 ﻿using Ardalis.Specification.EntityFrameworkCore;
 using Skittles.Framework.Core.Domain.Contracts;
 using Skittles.Framework.Core.Persistence;
+using Skittles.WebApi.Infrastructure.Persistence;
 
 namespace Skittles.WebApi.Infrastructure;
 
