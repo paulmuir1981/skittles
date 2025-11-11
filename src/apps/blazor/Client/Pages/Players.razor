@@ -15,6 +15,8 @@
            Color="Color.Success"
            OnClick="@(() => dataGrid.SetEditingItemAsync(new(Guid.Empty, "", "")))">Add Player</MudButton>
 
+<MudCheckBox T="bool" Label="Include Deleted?" ValueChanged="@(() => ToggleIncludeDeleted())" />
+
 <MudDataGrid T="Player"
              Items="@players" 
              ReadOnly=false
@@ -36,6 +38,14 @@
                 <MudCheckBox @bind-Value=context.Item.CanDrive Label="Can Drive?" />
             </EditTemplate>
         </TemplateColumn>
+        <TemplateColumn Title="Is Deleted?" SortBy="x => x.IsDeleted" Sortable="true" ShowColumnOptions="true" Hidden="@(!includeDeleted)">
+            <CellTemplate>
+                <MudCheckBox @bind-Value=context.Item.IsDeleted ReadOnly="true" />
+            </CellTemplate>
+            <EditTemplate>
+                <MudCheckBox @bind-Value=context.Item.IsDeleted Label="Is Deleted?" />
+            </EditTemplate>
+        </TemplateColumn>
         <TemplateColumn CellClass="d-flex justify-end">
             <CellTemplate>
                 <MudStack Row>
@@ -43,10 +53,13 @@
                                StartIcon="@Icons.Material.Filled.Edit"
                                Color="Color.Warning"
                                OnClick="@context.Actions.StartEditingItemAsync">Edit</MudButton>
-                    <MudButton Variant="Variant.Filled"
-                               StartIcon="@Icons.Material.Filled.Delete"
-                               Color="Color.Error"
-                               OnClick="@(() => DeletePlayer(@context.Item))">Delete</MudButton>
+                    @if (includeDeleted && context.Item.IsDeleted)
+                    {
+                        <MudButton Variant="Variant.Filled"
+                                   StartIcon="@Icons.Material.Filled.Delete"
+                                   Color="Color.Error"
+                                   OnClick="@(() => DeletePlayer(@context.Item))">Delete</MudButton>
+                    }
                 </MudStack>
             </CellTemplate>
         </TemplateColumn>
@@ -56,6 +69,7 @@
 @code {
     private IReadOnlyCollection<Player>? players;
     private MudDataGrid<Player> dataGrid = null!;
+    private bool includeDeleted = false;
 
     protected override Task OnInitializedAsync()
     {
@@ -74,7 +88,7 @@
 
     private async Task ListPlayers()
     {
-        players = await ApiClient.ListPlayers();
+        players = await ApiClient.ListPlayers(includeDeleted);
     }
 
     private async Task CommittedItemChanges(Player player)
@@ -82,12 +96,13 @@
         var message = player.Nickname;
         if (player.Id == Guid.Empty)
         {
-            await ApiClient.CreatePlayer(new(player.Name, player.Nickname, player.CanDrive));
+            await ApiClient.CreatePlayer(new(player.Name, player.Nickname, player.CanDrive, player.IsDeleted));
             message += " created";
         }
         else
         {
-            await ApiClient.UpdatePlayer(player.Id, new(player.Name, player.Nickname, player.CanDrive));
+            await ApiClient.UpdatePlayer(
+                player.Id, new(player.Name, player.Nickname, player.CanDrive, player.IsDeleted));
             message += " updated";
         }
 
@@ -106,5 +121,11 @@
         {
             await ListPlayers();
         }
+    }
+
+    private async Task ToggleIncludeDeleted()
+    {
+        includeDeleted = !includeDeleted;
+        await ListPlayers();
     }
 }

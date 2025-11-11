@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Ardalis.Specification;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Skittles.Framework.Core.Persistence;
 using Skittles.WebApi.Domain;
@@ -12,8 +13,20 @@ public sealed class ListPlayersHandler(
     public async Task<List<PlayerResponse>> Handle(ListPlayersRequest request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
+        var spec = new ListPlayerSpec(request.IncludeDeleted);
+        var items = await repository.ListAsync(spec, cancellationToken).ConfigureAwait(false);
+        return items;
+    }
 
-        var items = await repository.ListAsync(cancellationToken).ConfigureAwait(false);
-        return [.. items.Select(player => new PlayerResponse(player.Id, player.Name, player.Nickname, player.CanDrive))];
+    public class ListPlayerSpec : Specification<Player, PlayerResponse>
+    {
+        public ListPlayerSpec(bool includeDeleted)
+        {
+            if (!includeDeleted)
+            {
+                Query.Where(x => !x.IsDeleted);
+            }
+            Query.Select(x => new PlayerResponse(x.Id, x.Name, x.Nickname, x.CanDrive, x.IsDeleted));
+        }
     }
 }
