@@ -8,12 +8,13 @@ public class Player : AuditableEntity, IAggregateRoot
     public string Name { get; private set; } = default!;
     public string Nickname { get; private set; } = default!;
     public bool CanDrive { get; private set; }
+    public bool IsDeleted { get; private set; }
 
-    public static Player Create(string name, string? nickname = null, bool canDrive = false)
+    public static Player Create(string name, string? nickname = null, bool canDrive = false, bool isDeleted = false)
     {
         var player = new Player
         {
-            Name = name, Nickname = nickname ?? name, CanDrive = canDrive
+            Name = name, Nickname = nickname ?? name, CanDrive = canDrive, IsDeleted = isDeleted
         };
 
         //player.QueueDomainEvent(new PlayerCreated() { Player = player });
@@ -21,7 +22,7 @@ public class Player : AuditableEntity, IAggregateRoot
         return player;
     }
 
-    public Player Update(string? name, string? nickname, bool canDrive)
+    public Player Update(string? name, string? nickname, bool canDrive, bool isDeleted)
     {
         if (name is not null && Name?.Equals(name, StringComparison.OrdinalIgnoreCase) is not true) 
         { 
@@ -33,6 +34,7 @@ public class Player : AuditableEntity, IAggregateRoot
         }
 
         CanDrive = canDrive;
+        IsDeleted = isDeleted;
 
         //this.QueueDomainEvent(new PlayerUpdated() { Player = this });
         return this;

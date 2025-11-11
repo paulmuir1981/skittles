@@ -16,6 +16,6 @@ public sealed class GetPlayerHandler([FromKeyedServices("skittles:players")] IRe
         var player = await repository.GetByIdAsync(request.Id, cancellationToken)
             ?? throw new PlayerNotFoundException(request.Id);
 
-        return new GetPlayerResponse(player.Id, player.Name, player.Nickname, player.CanDrive);
+        return new GetPlayerResponse(player.Id, player.Name, player.Nickname, player.CanDrive, player.IsDeleted);
     }
 }

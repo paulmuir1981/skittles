@@ -13,9 +13,11 @@ public class ApiClient(HttpClient httpClient) : IApiClient
         return player is null ? throw new ApiException("Response was null which was not expected.") : player!;
     }
 
-    public async Task<IReadOnlyCollection<Player>> ListPlayers(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyCollection<Player>> ListPlayers(
+        bool includeDeleted, CancellationToken cancellationToken = default)
     {
-        var message = await httpClient.GetAsync("v1/players", cancellationToken);
+        var message = await httpClient.GetAsync(
+            $"v1/players?includeDeleted={includeDeleted}", cancellationToken);
         message.EnsureSuccessStatusCode();
 
         return await ReadFromJsonAsync<IReadOnlyCollection<Player>>(message, cancellationToken);
@@ -69,8 +71,10 @@ internal class ApiException : Exception
 public record Player(Guid Id, string Name, string Nickname)
 {
     public bool CanDrive { get; set; }
+    public bool IsDeleted { get; set; }
 }
-public record CreatePlayer(string Name, string Nickname, bool CanDrive);
-public record CreatePlayerResponse(Guid Id, string Name, string Nickname, bool CanDrive);
-public record UpdatePlayer(string Name, string Nickname, bool CanDrive);
-public record UpdatePlayerResponse(Guid Id, string Name, string Nickname, bool CanDrive);
+
+public record CreatePlayer(string Name, string Nickname, bool CanDrive, bool IsDeleted);
+public record CreatePlayerResponse(Guid Id, string Name, string Nickname, bool CanDrive, bool IsDeleted);
+public record UpdatePlayer(string Name, string Nickname, bool CanDrive, bool IsDeleted);
+public record UpdatePlayerResponse(Guid Id, string Name, string Nickname, bool CanDrive, bool IsDeleted);

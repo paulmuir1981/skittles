@@ -14,7 +14,7 @@ public sealed class CreatePlayerHandler(
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        var player = Player.Create(request.Name!, request.Nickname!, request.CanDrive);
+        var player = Player.Create(request.Name!, request.Nickname!, request.CanDrive, request.IsDeleted);
         await repository.AddAsync(player, cancellationToken);
         logger.LogInformation("player created {PlayerId}", player.Id);
 
