@@ -16,4 +16,4 @@ builder.AddProject<Projects.Client>("blazor")
 
 using var app = builder.Build();
 
-await app.RunAsync();
+app.Run();
