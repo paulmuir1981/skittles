@@ -23,9 +23,5 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-      env:
-        DatabaseOptions__ConnectionString: "Data Source=skittles.db"
     - name: Test
-      run: dotnet test --no-build --verbosity normal --filter "FullyQualifiedName!~Skittles.Aspire.Tests"
-      env:
-        DatabaseOptions__ConnectionString: "Data Source=skittles.db"
+      run: dotnet test --no-build --verbosity normal --filter "Category!=Aspire"

@@ -12,22 +12,10 @@ internal sealed class SkittlesDbInitializer(
 {
     public async Task MigrateAsync(CancellationToken cancellationToken)
     {
-        try
+        if ((await context.Database.GetPendingMigrationsAsync(cancellationToken)).Any())
         {
-            // Ensure database is created first
-            await context.Database.EnsureCreatedAsync(cancellationToken).ConfigureAwait(false);
-            
-            var pendingMigrations = await context.Database.GetPendingMigrationsAsync(cancellationToken);
-            if (pendingMigrations.Any())
-            {
-                await context.Database.MigrateAsync(cancellationToken).ConfigureAwait(false);
-                logger.LogInformation("Applied database migrations for skittles module");
-            }
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Error applying migrations");
-            throw;
+            await context.Database.MigrateAsync(cancellationToken).ConfigureAwait(false);
+            logger.LogInformation("Applied database migrations for skittles module");
         }
     }
 
