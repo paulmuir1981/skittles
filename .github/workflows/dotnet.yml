@@ -25,7 +25,11 @@ jobs:
       run: dotnet build --no-restore
       env:
         DatabaseOptions__ConnectionString: "Data Source=skittles.db"
+        DOTNET_ENVIRONMENT: "Testing"
+        NODE_TLS_REJECT_UNAUTHORIZED: "0"
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --logger "console;verbosity=detailed"
       env:
         DatabaseOptions__ConnectionString: "Data Source=skittles.db"
+        DOTNET_ENVIRONMENT: "Testing"
+        NODE_TLS_REJECT_UNAUTHORIZED: "0"
