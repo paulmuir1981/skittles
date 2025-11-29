@@ -10,9 +10,18 @@ namespace Skittles.Framework.Infrastructure.Persistence;
 
 public static class Extensions
 {
+    private const string MemoryConnectionString = "Data Source=:memory:";
+
     internal static DbContextOptionsBuilder ConfigureDatabase(this DbContextOptionsBuilder builder, string connectionString)
     {
-        builder.UseSqlServer(connectionString, e => e.MigrationsAssembly("Skittles.WebApi.Migrations"));
+        if (connectionString == MemoryConnectionString)
+        {
+            builder.UseSqlite(connectionString, e => e.MigrationsAssembly("Skittles.WebApi.Migrations"));
+        }
+        else
+        {
+            builder.UseSqlServer(connectionString, e => e.MigrationsAssembly("Skittles.WebApi.Migrations"));
+        }
         return builder;
     }
 
