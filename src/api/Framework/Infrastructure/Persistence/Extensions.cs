@@ -12,7 +12,15 @@ public static class Extensions
 {
     internal static DbContextOptionsBuilder ConfigureDatabase(this DbContextOptionsBuilder builder, string connectionString)
     {
-        builder.UseSqlServer(connectionString, e => e.MigrationsAssembly("Skittles.WebApi.Migrations"));
+        // Detect if using SQLite (for CI/CD) or SQL Server (for production)
+        if (connectionString.Contains("Data Source=") && connectionString.EndsWith(".db"))
+        {
+            builder.UseSqlite(connectionString);
+        }
+        else
+        {
+            builder.UseSqlServer(connectionString, e => e.MigrationsAssembly("Skittles.WebApi.Migrations"));
+        }
         return builder;
     }
 
