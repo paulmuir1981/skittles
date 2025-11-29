@@ -2,6 +2,7 @@
 
 namespace Skittles.Aspire.Tests;
 
+[Category("Aspire")]
 public class LoggingTest
 {
     private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(30);

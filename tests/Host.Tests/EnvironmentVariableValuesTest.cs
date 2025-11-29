@@ -2,6 +2,7 @@
 
 namespace Skittles.Aspire.Tests;
 
+[Category("Aspire")]
 public class EnvironmentVariableValuesTest
 {
     [Test]
