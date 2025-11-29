@@ -13,22 +13,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      sqlserver:
-        image: mcr.microsoft.com/mssql/server:2019-latest
-        env:
-          ACCEPT_EULA: Y
-          SA_PASSWORD: "YourPassword123!"
-          MSSQL_PID: Express
-        options: >-
-          --health-cmd="/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourPassword123! -Q 'SELECT 1'" 
-          --health-interval 20s 
-          --health-timeout 15s 
-          --health-retries 10
-          -m 2gb
-        ports:
-          - 1433:1433
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -40,23 +24,12 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       env:
-        DatabaseOptions__ConnectionString: "Server=localhost,1433;User Id=sa;Password=YourPassword123!;Database=SkittlesDb;Encrypt=false;"
-    - name: Wait for SQL Server
-      run: |
-        for i in {1..30}; do
-          if /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourPassword123! -Q "SELECT 1" &>/dev/null; then
-            echo "SQL Server is ready"
-            exit 0
-          fi
-          echo "Waiting for SQL Server... ($i/30)"
-          sleep 2
-        done
-        exit 1
+        DatabaseOptions__ConnectionString: "Data Source=skittles.db"
     - name: Apply Migrations
       run: dotnet ef database update --project src/api/Modules/Infrastructure --startup-project src/api/Server --context SkittlesDbContext
       env:
-        DatabaseOptions__ConnectionString: "Server=localhost,1433;User Id=sa;Password=YourPassword123!;Database=SkittlesDb;Encrypt=false;"
+        DatabaseOptions__ConnectionString: "Data Source=skittles.db"
     - name: Test
       run: dotnet test --no-build --verbosity normal
       env:
-        DatabaseOptions__ConnectionString: "Server=localhost,1433;User Id=sa;Password=YourPassword123!;Database=SkittlesDb;Encrypt=false;"
+        DatabaseOptions__ConnectionString: "Data Source=skittles.db"
