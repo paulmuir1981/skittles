@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Skittles.Framework.Infrastructure.Persistence;
 using Skittles.WebApi.Domain;
 
 namespace Skittles.WebApi.Infrastructure.Persistence;

@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Text.Json;
 
 namespace Skittles.Framework.Infrastructure.OpenApi;
 public class SwaggerDefaultValues : IOperationFilter
