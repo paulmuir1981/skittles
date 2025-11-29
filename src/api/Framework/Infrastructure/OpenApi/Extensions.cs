@@ -1,6 +1,5 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -48,6 +47,7 @@ public static class Extensions
             .EnableApiVersionBinding();
         return services;
     }
+
     public static WebApplication UseOpenApi(this WebApplication app)
     {
         ArgumentNullException.ThrowIfNull(app);
@@ -70,10 +70,9 @@ public static class Extensions
                 {
                     options.SwaggerEndpoint(endpoint.Url, endpoint.Name);
                 }
+
+                options.RoutePrefix = string.Empty;
             });
-            var option = new RewriteOptions();
-            option.AddRedirect("^$", "swagger");
-            app.UseRewriter(option);
         }
         return app;
     }
