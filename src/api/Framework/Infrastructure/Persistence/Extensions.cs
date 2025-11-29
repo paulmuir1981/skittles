@@ -14,7 +14,6 @@ public static class Extensions
     {
         builder.UseSqlServer(connectionString, e => e.MigrationsAssembly("Skittles.WebApi.Migrations"));
         return builder;
-
     }
 
     public static WebApplicationBuilder ConfigureDatabase(this WebApplicationBuilder builder)
