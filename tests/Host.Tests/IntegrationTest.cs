@@ -1,7 +1,10 @@
 using Microsoft.Extensions.Logging;
+using NUnit.Framework;
+using System.Net;
 
 namespace Skittles.Aspire.Tests;
 
+[Category("Aspire")]
 public class IntegrationTest
 {
     private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(30);

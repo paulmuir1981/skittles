@@ -2,9 +2,8 @@
 using Microsoft.Extensions.Logging;
 using Skittles.Framework.Core.Persistence;
 using Skittles.WebApi.Domain;
-using Skittles.WebApi.Infrastructure.Persistence;
 
-namespace Skittles.WebApi.Infrastructure;
+namespace Skittles.WebApi.Infrastructure.Persistence;
 
 internal sealed class SkittlesDbInitializer(
     ILogger<SkittlesDbInitializer> logger,

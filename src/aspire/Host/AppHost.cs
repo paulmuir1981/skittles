@@ -1,32 +1,19 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 var webapi = builder.AddProject<Projects.Server>("webapi")
-    .WithUrlForEndpoint("https", url =>
-    {
-        url.DisplayText = "Swagger (HTTPS)";
-        url.Url = "/swagger";
-    })
-    .WithUrlForEndpoint("http", url =>
-    {
-        url.DisplayText = "Swagger (HTTP)";
-        url.Url = "/swagger";
-    });
+    //todo re-add swagger link when available - currently redirecting in UseOpenApi
+    .WithUrlForEndpoint("https", url => url.DisplayText = "Swagger (HTTPS)")
+    .WithUrlForEndpoint("http", url => url.DisplayText = "Swagger (HTTP)")
+    .WithHttpHealthCheck("/health");
 
 builder.AddProject<Projects.Client>("blazor")
-    .WithUrlForEndpoint("https", url =>
-    {
-        url.DisplayText = "Home (HTTPS)";
-        url.Url = "/";
-    })
-    .WithUrlForEndpoint("http", url =>
-    {
-        url.DisplayText = "Home (HTTP)";
-        url.Url = "/";
-    })
     .WithExternalHttpEndpoints()
+    .WithUrlForEndpoint("https", url => url.DisplayText = "Home (HTTPS)")
+    .WithUrlForEndpoint("http", url => url.DisplayText = "Home (HTTP)")
+    .WithHttpHealthCheck("/health")
     .WithReference(webapi)
     .WaitFor(webapi);
 
 using var app = builder.Build();
 
-await app.RunAsync();
+app.Run();

@@ -26,7 +26,7 @@ public static class Extensions
         app.UseDatabase();
         app.UseExceptionHandler();
         app.UseCorsPolicy();
-        app.UseOpenApi();
+        app.UseOpenApi(); 
         return app;
     }
 }

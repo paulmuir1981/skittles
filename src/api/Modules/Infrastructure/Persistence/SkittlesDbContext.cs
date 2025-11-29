@@ -16,6 +16,5 @@ public sealed class SkittlesDbContext: DbContext
     {
         ArgumentNullException.ThrowIfNull(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SkittlesDbContext).Assembly);
-        modelBuilder.HasDefaultSchema(SchemaNames.Skittles);
     }
 }

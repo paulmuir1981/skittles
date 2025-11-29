@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text.Json;
 
@@ -22,9 +22,9 @@ public class SwaggerDefaultValues : IOperationFilter
         {
             // REF: https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/b7cf75e7905050305b115dd96640ddd6e74c7ac9/src/Swashbuckle.AspNetCore.SwaggerGen/SwaggerGenerator/SwaggerGenerator.cs#L383-L387
             var responseKey = responseType.IsDefaultResponse ? "default" : responseType.StatusCode.ToString();
-            var response = operation.Responses[responseKey];
+            var response = operation!.Responses![responseKey];
 
-            foreach (var contentType in response.Content.Keys)
+            foreach (var contentType in response!.Content!.Keys)
             {
                 if (!responseType.ApiResponseFormats.Any(x => x.MediaType == contentType))
                 {
@@ -38,25 +38,26 @@ public class SwaggerDefaultValues : IOperationFilter
             return;
         }
 
+        //todo not needed?
         // REF: https://github.com/domaindrivendev/Swashbuckle.AspNetCore/issues/412
         // REF: https://github.com/domaindrivendev/Swashbuckle.AspNetCore/pull/413
-        foreach (var parameter in operation.Parameters)
-        {
-            var description = apiDescription.ParameterDescriptions.First(p => p.Name == parameter.Name);
+        //foreach (var parameter in operation.Parameters)
+        //{
+        //    var description = apiDescription.ParameterDescriptions.First(p => p.Name == parameter.Name);
 
-            parameter.Description ??= description.ModelMetadata?.Description;
+        //    parameter.Description ??= description.ModelMetadata?.Description;
 
-            if (parameter.Schema.Default == null &&
-                 description.DefaultValue != null &&
-                 description.DefaultValue is not DBNull &&
-                 description.ModelMetadata is ModelMetadata modelMetadata)
-            {
-                // REF: https://github.com/Microsoft/aspnet-api-versioning/issues/429#issuecomment-605402330
-                var json = JsonSerializer.Serialize(description.DefaultValue, modelMetadata.ModelType);
-                parameter.Schema.Default = OpenApiAnyFactory.CreateFromJson(json);
-            }
+        //    if (parameter.Schema.Default == null &&
+        //         description.DefaultValue != null &&
+        //         description.DefaultValue is not DBNull &&
+        //         description.ModelMetadata is ModelMetadata modelMetadata)
+        //    {
+        //        // REF: https://github.com/Microsoft/aspnet-api-versioning/issues/429#issuecomment-605402330
+        //        var json = JsonSerializer.Serialize(description.DefaultValue, modelMetadata.ModelType);
+        //        parameter.Schema.Default = Microsoft.OpenApi.OpenApiWriterAnyExtensions. OpenApiAnyFactory.CreateFromJson(json);
+        //    }
 
-            parameter.Required |= description.IsRequired;
-        }
+        //    parameter.Required |= description.IsRequired;
+        //}
     }
 }
