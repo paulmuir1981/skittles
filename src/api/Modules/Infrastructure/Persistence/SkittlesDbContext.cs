@@ -16,6 +16,19 @@ public sealed class SkittlesDbContext: DbContext
     {
         ArgumentNullException.ThrowIfNull(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SkittlesDbContext).Assembly);
-        modelBuilder.HasDefaultSchema(SchemaNames.Skittles);
+        
+        // Only apply schema for SQL Server (SQLite doesn't support schemas)
+        if (Database.IsSqlServer())
+        {
+            modelBuilder.HasDefaultSchema(SchemaNames.Skittles);
+        }
+        else if (Database.IsSqlite())
+        {
+            // Remove schema from all entities for SQLite
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            {
+                entity.SetSchema(null);
+            }
+        }
     }
 }
