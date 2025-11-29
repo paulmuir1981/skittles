@@ -25,10 +25,6 @@ jobs:
       run: dotnet build --no-restore
       env:
         DatabaseOptions__ConnectionString: "Data Source=skittles.db"
-    - name: Apply Migrations
-      run: dotnet ef database update --project src/api/Modules/Infrastructure --startup-project src/api/Server --context SkittlesDbContext
-      env:
-        DatabaseOptions__ConnectionString: "Data Source=skittles.db"
     - name: Test
       run: dotnet test --no-build --verbosity normal
       env:
