@@ -30,7 +30,7 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
 
     private static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
     {
-        var text = new StringBuilder(".NET 8 Skittles App with Vertical Slice Architecture!");
+        var text = new StringBuilder(".NET 10 Skittles App with Vertical Slice Architecture!");
         var info = new OpenApiInfo()
         {
             Title = "Skittles.WebApi",
