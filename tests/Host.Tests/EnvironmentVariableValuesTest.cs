@@ -2,11 +2,10 @@
 
 namespace Skittles.Aspire.Tests;
 
-[Category("Aspire")]
-public class EnvironmentVariableValuesTest
+public class EnvironmentVariableValuesTest : AspireTestBase
 {
     [Test]
-    public async Task GetEnvironmentVariableValuesAsync_ResolveToWebApiService()
+    public async Task GetEnvironmentVariableValues_ResolveToWebApiService()
     {
         var builder = await DistributedApplicationTestingBuilder
             .CreateAsync<Projects.Host>();

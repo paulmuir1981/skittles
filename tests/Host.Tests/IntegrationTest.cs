@@ -1,38 +1,25 @@
 using Microsoft.Extensions.Logging;
-using NUnit.Framework;
-using System.Net;
 
 namespace Skittles.Aspire.Tests;
 
-[Category("Aspire")]
-public class IntegrationTest
+public class IntegrationTest : AspireTestBase
 {
-    private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(30);
+    protected override void ConfigureLogging(IDistributedApplicationTestingBuilder builder)
+    {
+        builder.Services.AddLogging(logging =>
+        {
+            logging.SetMinimumLevel(LogLevel.Debug);
+            logging.AddConsole();
+            logging.AddFilter(builder.Environment.ApplicationName, LogLevel.Debug);
+            logging.AddFilter("Microsoft.AspNetCore", LogLevel.Debug);
+            logging.AddFilter("Aspire", LogLevel.Debug);
+        });
+    }
 
     [Test]
     public async Task GetAsync_BlazorRoot_ReturnsOkStatusCode()
     {
-        using var cts = new CancellationTokenSource(DefaultTimeout);
-        var cancellationToken = cts.Token;
-        var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.Host>();
-        appHost.Services.AddLogging(logging =>
-        {
-            logging.SetMinimumLevel(LogLevel.Debug);
-            // Override the logging filters from the app's configuration
-            logging.AddFilter(appHost.Environment.ApplicationName, LogLevel.Debug);
-            logging.AddFilter("Aspire.", LogLevel.Debug);
-        });
-        appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
-        {
-            clientBuilder.AddStandardResilienceHandler();
-        });
-
-        await using var app = await appHost.BuildAsync(cancellationToken).WaitAsync(DefaultTimeout, cancellationToken);
-        await app.StartAsync(cancellationToken).WaitAsync(DefaultTimeout, cancellationToken);
-
-        using var httpClient = app.CreateHttpClient("blazor");
-        await app.ResourceNotifications.WaitForResourceHealthyAsync("blazor", cancellationToken).WaitAsync(DefaultTimeout, cancellationToken);
-        using var response = await httpClient.GetAsync("/", cancellationToken);
+        var response = await HttpClient!.GetAsync("/");
 
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
     }
