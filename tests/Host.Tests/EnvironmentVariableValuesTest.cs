@@ -1,8 +1,8 @@
 ﻿using Aspire.Hosting;
 
-namespace Skittles.Aspire.Tests;
+namespace Skittles.Host.Tests;
 
-public class EnvironmentVariableValuesTest : AspireTestBase
+public class EnvironmentVariableValuesTest : HostTestBase
 {
     [Test]
     public async Task GetEnvironmentVariableValues_ResolveToWebApiService()

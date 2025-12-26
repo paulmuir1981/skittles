@@ -20,6 +20,7 @@ public static class CreatePlayerEndpoint
             .WithSummary("creates a player")
             .WithDescription("creates a player")
             .Produces<CreatePlayerResponse>()
+            .ProducesProblem(StatusCodes.Status400BadRequest)
             .MapToApiVersion(1);
     }
 }

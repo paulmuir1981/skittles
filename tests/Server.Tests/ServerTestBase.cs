@@ -1,13 +1,12 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Skittles.Framework.Core.Persistence;
-using Skittles.WebApi.Host;
 using Skittles.WebApi.Infrastructure.Persistence;
+using System.Text.Json;
 
-namespace Skittles.WebApi.Tests;
+namespace Skittles.Server.Tests;
 
 [Category("Server")]
 public abstract class ServerTestBase
@@ -53,22 +52,31 @@ public abstract class ServerTestBase
             });
 
         HttpClient = Factory.CreateClient();
+        SetupSkittlesDbContext();
     }
 
     [OneTimeTearDown]
     public void OneTimeTearDown()
     {
+        using var scope = Factory!.Services.CreateScope();
+        var ctx = scope.ServiceProvider.GetRequiredService<SkittlesDbContext>();
+        ctx.Players.RemoveRange(ctx.Players);
+        ctx.SaveChanges();
         Factory?.Dispose();
         HttpClient?.Dispose();
     }
 
-    protected async Task<T?> GetJsonResponse<T>(HttpResponseMessage response)
+    protected virtual void SetupSkittlesDbContext(){ }
+
+    protected static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
+    protected static async Task<T?> GetJsonResponse<T>(HttpResponseMessage response)
     {
         var content = await response.Content.ReadAsStringAsync();
-        return System.Text.Json.JsonSerializer.Deserialize<T>(content, new System.Text.Json.JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        return JsonSerializer.Deserialize<T>(content, JsonOptions);
     }
 
     private class TestDbInitializer : IDbInitializer
@@ -85,9 +93,9 @@ public abstract class ServerTestBase
             await context.Database.EnsureCreatedAsync(cancellationToken);
         }
 
-        public async Task SeedAsync(CancellationToken cancellationToken)
+        public Task SeedAsync(CancellationToken cancellationToken)
         {
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
     }
 }

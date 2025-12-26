@@ -5,11 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsTestProject>true</IsTestProject>
-    <RootNamespace>Skittles.WebApi.Tests</RootNamespace>
-    <AssemblyName>Skittles.WebApi.Tests</AssemblyName>
+    <RootNamespace>Skittles.Server.Tests</RootNamespace>
+    <AssemblyName>Skittles.Server.Tests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
+	  <PackageReference Include="AutoFixture" Version="4.18.1" />
 	  <PackageReference Include="coverlet.collector" Version="6.0.4" />
 	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
 	  <PackageReference Include="NUnit" Version="4.4.0" />
@@ -26,8 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\api\Server\Server.csproj" />
-    <ProjectReference Include="..\..\src\api\Modules\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\..\src\api\Framework\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

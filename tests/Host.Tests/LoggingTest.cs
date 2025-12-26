@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Skittles.Aspire.Tests;
+namespace Skittles.Host.Tests;
 
-public class LoggingTest : AspireTestBase
+public class LoggingTest : HostTestBase
 {
     protected override void ConfigureLogging(IDistributedApplicationTestingBuilder builder)
     {

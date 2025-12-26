@@ -1,10 +1,10 @@
 using Aspire.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Skittles.Aspire.Tests;
+namespace Skittles.Host.Tests;
 
-[Category("Aspire")]
-public abstract class AspireTestBase
+[Category("Host")]
+public abstract class HostTestBase
 {
     protected static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(30);
     protected DistributedApplication? App;
