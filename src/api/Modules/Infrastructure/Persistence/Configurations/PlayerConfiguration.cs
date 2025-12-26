@@ -11,5 +11,6 @@ internal sealed class PlayerConfiguration : IEntityTypeConfiguration<Player>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(100);
         builder.Property(x => x.Nickname).HasMaxLength(100);
+        builder.HasIndex(x => x.Nickname).IsUnique();
     }
 }
