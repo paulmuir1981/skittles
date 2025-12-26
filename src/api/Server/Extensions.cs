@@ -4,7 +4,7 @@ using System.Reflection;
 using Skittles.WebApi.Infrastructure;
 using Skittles.WebApi.Application;
 
-namespace Skittles.WebApi.Host;
+namespace Skittles.WebApi.Server;
 
 public static class Extensions
 {

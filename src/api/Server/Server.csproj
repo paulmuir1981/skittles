@@ -4,8 +4,8 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Skittles.WebApi.Host</RootNamespace>
-    <AssemblyName>Skittles.WebApi.Host</AssemblyName>
+    <RootNamespace>Skittles.WebApi.Server</RootNamespace>
+    <AssemblyName>Skittles.WebApi.Server</AssemblyName>
     <ContainerUser>root</ContainerUser>
   </PropertyGroup>
   <PropertyGroup>

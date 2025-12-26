@@ -1,12 +1,11 @@
 ﻿using Aspire.Hosting;
 
-namespace Skittles.Aspire.Tests;
+namespace Skittles.Host.Tests;
 
-[Category("Aspire")]
-public class EnvironmentVariableValuesTest
+public class EnvironmentVariableValuesTest : HostTestBase
 {
     [Test]
-    public async Task GetEnvironmentVariableValuesAsync_ResolveToWebApiService()
+    public async Task GetEnvironmentVariableValues_ResolveToWebApiService()
     {
         var builder = await DistributedApplicationTestingBuilder
             .CreateAsync<Projects.Host>();
