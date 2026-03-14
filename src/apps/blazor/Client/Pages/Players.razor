@@ -91,7 +91,7 @@
         players = await ApiClient.ListPlayers(includeDeleted);
     }
 
-    private async Task CommittedItemChanges(Player player)
+    private async Task<DataGridEditFormAction> CommittedItemChanges(Player player)
     {
         var message = player.Nickname;
         if (player.Id == Guid.Empty)
@@ -108,6 +108,8 @@
 
         Snackbar.Add(message);
         await ListPlayers();
+
+        return DataGridEditFormAction.Close;
     }
 
     private async Task DeletePlayer(Player player)
