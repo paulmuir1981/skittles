@@ -108,6 +108,7 @@
 
         Snackbar.Add(message);
         await ListPlayers();
+        StateHasChanged();
 
         return DataGridEditFormAction.Close;
     }
