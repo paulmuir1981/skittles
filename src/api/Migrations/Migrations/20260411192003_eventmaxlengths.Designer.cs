@@ -13,7 +13,7 @@ namespace Skittles.WebApi.Migrations.Migrations
 {
     [DbContext(typeof(SkittlesDbContext))]
     [Migration("20260411192003_eventmaxlengths")]
-    partial class eventmaxlengths
+    partial class Eventmaxlengths
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

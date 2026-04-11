@@ -5,7 +5,7 @@
 namespace Skittles.WebApi.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class eventmaxlengths : Migration
+    public partial class Eventmaxlengths : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

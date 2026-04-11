@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Skittles.WebApi.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class holidayadd : Migration
+    public partial class Holidayadd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

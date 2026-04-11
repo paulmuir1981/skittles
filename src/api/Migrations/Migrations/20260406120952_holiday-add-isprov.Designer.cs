@@ -13,7 +13,7 @@ namespace Skittles.WebApi.Migrations.Migrations
 {
     [DbContext(typeof(SkittlesDbContext))]
     [Migration("20260406120952_holiday-add-isprov")]
-    partial class holidayaddisprov
+    partial class Holidayaddisprov
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

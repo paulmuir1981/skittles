@@ -13,7 +13,7 @@ namespace Skittles.WebApi.Migrations.Migrations
 {
     [DbContext(typeof(SkittlesDbContext))]
     [Migration("20260411190425_eventoverweek")]
-    partial class eventoverweek
+    partial class Eventoverweek
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

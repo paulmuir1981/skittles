@@ -13,7 +13,7 @@ namespace Skittles.WebApi.Migrations.Migrations
 {
     [DbContext(typeof(SkittlesDbContext))]
     [Migration("20260405185707_expanddb")]
-    partial class expanddb
+    partial class Expanddb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -5,7 +5,7 @@
 namespace Skittles.WebApi.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class weekupdates : Migration
+    public partial class Weekupdates : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
