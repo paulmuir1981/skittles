@@ -35,6 +35,8 @@ public static class SkittlesModule
         builder.Services.AddScoped<IDbInitializer, SkittlesDbInitializer>();
         builder.Services.AddKeyedScoped<IRepository<Player>, SkittlesRepository<Player>>("skittles:players");
         builder.Services.AddKeyedScoped<IReadRepository<Player>, SkittlesRepository<Player>>("skittles:players");
+        builder.Services.AddKeyedScoped<IRepository<Season>, SkittlesRepository<Season>>("skittles:seasons");
+        builder.Services.AddKeyedScoped<IReadRepository<Season>, SkittlesRepository<Season>>("skittles:seasons");
         return builder;
     }
 

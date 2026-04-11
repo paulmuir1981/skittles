@@ -1,5 +1,4 @@
-﻿using AutoFixture;
-using Skittles.WebApi.Domain;
+﻿using Skittles.WebApi.Domain;
 
 namespace Skittles.Server.Tests.Builders;
 
@@ -12,7 +11,6 @@ public class PlayerBuilder
 
     public Player Build()
     {
-        var fixture = new Fixture();
         return Player.Create(_name ?? "I am a fake name", _nickname, _canDrive ?? false, _isDeleted ?? false);
     }
 
