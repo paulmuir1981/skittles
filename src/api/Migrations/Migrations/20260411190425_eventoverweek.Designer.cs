@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skittles.WebApi.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using Skittles.WebApi.Infrastructure.Persistence;
 namespace Skittles.WebApi.Migrations.Migrations
 {
     [DbContext(typeof(SkittlesDbContext))]
-    partial class SkittlesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260411190425_eventoverweek")]
+    partial class Eventoverweek
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,8 +69,7 @@ namespace Skittles.WebApi.Migrations.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte>("EventType")
                         .HasColumnType("tinyint");
@@ -82,8 +84,7 @@ namespace Skittles.WebApi.Migrations.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Opponent")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("SeasonId")
                         .HasColumnType("uniqueidentifier");

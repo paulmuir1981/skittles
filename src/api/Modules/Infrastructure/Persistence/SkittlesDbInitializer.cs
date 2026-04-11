@@ -21,7 +21,7 @@ internal sealed class SkittlesDbInitializer(
     public async Task SeedAsync(CancellationToken cancellationToken)
     {
         // Check if players already exist
-        if (await context.Players.AnyAsync(cancellationToken).ConfigureAwait(false))
+        if (await context.Seasons.AnyAsync(cancellationToken).ConfigureAwait(false))
         {
             return; // Database already seeded
         }
@@ -40,8 +40,11 @@ internal sealed class SkittlesDbInitializer(
             Player.Create("Ivy Chen"),
             Player.Create("Jack Sparrow")
         };
-
         context.Players.AddRange(players);
+
+        var seasons = Enumerable.Range(2025, DateTime.UtcNow.Year - 2025).Select(year => Season.Create(year));
+        context.Seasons.AddRange(seasons);
+
         await context.SaveChangesAsync(cancellationToken);
         logger.LogInformation("Seeding default skittles data");
     }
