@@ -29,14 +29,18 @@ public class AuditableEntityInterceptor(TimeProvider timeProvider) : SaveChanges
         {
             if (entry.State is EntityState.Added or EntityState.Modified || entry.HasChangedOwnedEntities())
             {
+                var currentUserId = Guid.Empty;// currentUser.GetUserId();
                 var utcNow = timeProvider.GetUtcNow();
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.CreatedBy = Guid.Empty;// currentUser.GetUserId();
+                    entry.Entity.CreatedBy = currentUserId;
                     entry.Entity.Created = utcNow;
                 }
-                entry.Entity.LastModifiedBy = Guid.Empty;// currentUser.GetUserId();
-                entry.Entity.LastModified = utcNow;
+                else
+                {
+                    entry.Entity.LastModifiedBy = currentUserId;
+                    entry.Entity.LastModified = utcNow;
+                }
             }
         }
     }

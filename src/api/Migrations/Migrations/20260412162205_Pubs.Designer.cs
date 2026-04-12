@@ -12,8 +12,8 @@ using Skittles.WebApi.Infrastructure.Persistence;
 namespace Skittles.WebApi.Migrations.Migrations
 {
     [DbContext(typeof(SkittlesDbContext))]
-    [Migration("20260411190425_eventoverweek")]
-    partial class Eventoverweek
+    [Migration("20260412162205_Pubs")]
+    partial class Pubs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,18 +31,6 @@ namespace Skittles.WebApi.Migrations.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("EventId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid?>("LastModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("PlayerId", "EventId");
@@ -69,29 +57,35 @@ namespace Skittles.WebApi.Migrations.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<byte>("EventType")
                         .HasColumnType("tinyint");
 
-                    b.Property<bool>("IsAway")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset>("LastModified")
+                    b.Property<DateTimeOffset?>("LastModified")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("LastModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Opponent")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("OpponentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("SeasonId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("VenueId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("SeasonId");
+                    b.HasIndex("OpponentId");
+
+                    b.HasIndex("VenueId");
+
+                    b.HasIndex("SeasonId", "Description")
+                        .IsUnique();
 
                     b.ToTable("Events");
                 });
@@ -102,21 +96,6 @@ namespace Skittles.WebApi.Migrations.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("EventId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsProvisional")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid?>("LastModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("PlayerId", "EventId");
@@ -132,19 +111,7 @@ namespace Skittles.WebApi.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("EventId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid?>("LastModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<byte>("Number")
@@ -152,7 +119,8 @@ namespace Skittles.WebApi.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventId");
+                    b.HasIndex("EventId", "Number")
+                        .IsUnique();
 
                     b.ToTable("Legs");
                 });
@@ -175,7 +143,7 @@ namespace Skittles.WebApi.Migrations.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<DateTimeOffset>("LastModified")
+                    b.Property<DateTimeOffset?>("LastModified")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("LastModifiedBy")
@@ -199,12 +167,10 @@ namespace Skittles.WebApi.Migrations.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("Skittles.WebApi.Domain.Registration", b =>
+            modelBuilder.Entity("Skittles.WebApi.Domain.Pub", b =>
                 {
-                    b.Property<Guid>("PlayerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SeasonId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset>("Created")
@@ -213,17 +179,31 @@ namespace Skittles.WebApi.Migrations.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModified")
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LastModified")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("LastModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("PlayerId", "SeasonId");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.HasIndex("SeasonId");
+                    b.Property<string>("Postcode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
-                    b.ToTable("Registrations");
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Pub");
                 });
 
             modelBuilder.Entity("Skittles.WebApi.Domain.Score", b =>
@@ -240,7 +220,7 @@ namespace Skittles.WebApi.Migrations.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModified")
+                    b.Property<DateTimeOffset?>("LastModified")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("LastModifiedBy")
@@ -260,18 +240,6 @@ namespace Skittles.WebApi.Migrations.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid?>("LastModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Year")
@@ -303,13 +271,27 @@ namespace Skittles.WebApi.Migrations.Migrations
 
             modelBuilder.Entity("Skittles.WebApi.Domain.Event", b =>
                 {
+                    b.HasOne("Skittles.WebApi.Domain.Pub", "Opponent")
+                        .WithMany("OppositionEvents")
+                        .HasForeignKey("OpponentId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("Skittles.WebApi.Domain.Season", "Season")
                         .WithMany("Events")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Skittles.WebApi.Domain.Pub", "Venue")
+                        .WithMany("HostedEvents")
+                        .HasForeignKey("VenueId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Opponent");
+
                     b.Navigation("Season");
+
+                    b.Navigation("Venue");
                 });
 
             modelBuilder.Entity("Skittles.WebApi.Domain.Holiday", b =>
@@ -340,25 +322,6 @@ namespace Skittles.WebApi.Migrations.Migrations
                         .IsRequired();
 
                     b.Navigation("Event");
-                });
-
-            modelBuilder.Entity("Skittles.WebApi.Domain.Registration", b =>
-                {
-                    b.HasOne("Skittles.WebApi.Domain.Player", "Player")
-                        .WithMany("Registrations")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Skittles.WebApi.Domain.Season", "Season")
-                        .WithMany("Registrations")
-                        .HasForeignKey("SeasonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Player");
-
-                    b.Navigation("Season");
                 });
 
             modelBuilder.Entity("Skittles.WebApi.Domain.Score", b =>
@@ -400,16 +363,19 @@ namespace Skittles.WebApi.Migrations.Migrations
 
                     b.Navigation("Holidays");
 
-                    b.Navigation("Registrations");
-
                     b.Navigation("Scores");
+                });
+
+            modelBuilder.Entity("Skittles.WebApi.Domain.Pub", b =>
+                {
+                    b.Navigation("HostedEvents");
+
+                    b.Navigation("OppositionEvents");
                 });
 
             modelBuilder.Entity("Skittles.WebApi.Domain.Season", b =>
                 {
                     b.Navigation("Events");
-
-                    b.Navigation("Registrations");
                 });
 #pragma warning restore 612, 618
         }

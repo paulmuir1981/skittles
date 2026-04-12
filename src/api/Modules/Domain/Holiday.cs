@@ -3,11 +3,10 @@ using Skittles.Framework.Core.Domain.Contracts;
 
 namespace Skittles.WebApi.Domain;
 
-public class Holiday : AuditableEntity<(Guid PlayerId, Guid EventId)>, IAggregateRoot
+public class Holiday : BaseEntity, IAggregateRoot
 {
     public Guid PlayerId { get; private set; }
     public Guid EventId { get; private set; }
-    public bool IsProvisional { get; private set; }
 
     public Player Player { get; private set; } = null!;
     public Event Event { get; private set; } = null!;
@@ -16,7 +15,8 @@ public class Holiday : AuditableEntity<(Guid PlayerId, Guid EventId)>, IAggregat
     {
         var holiday = new Holiday
         {
-            Id = (playerId, eventId)
+            PlayerId = playerId,
+            EventId = eventId
         };
 
         //holiday.QueueDomainEvent(new HolidayCreated() { Holiday = holiday });

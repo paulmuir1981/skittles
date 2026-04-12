@@ -2,15 +2,10 @@
 
 namespace Skittles.Framework.Core.Domain;
 
-public class AuditableEntity<TId> : BaseEntity<TId>, IAuditable
+public abstract class AuditableEntity : BaseEntity, IAuditable
 {
     public DateTimeOffset Created { get; set; }
     public Guid CreatedBy { get; set; }
-    public DateTimeOffset LastModified { get; set; }
+    public DateTimeOffset? LastModified { get; set; }
     public Guid? LastModifiedBy { get; set; }
-}
-
-public abstract class AuditableEntity : AuditableEntity<Guid>
-{
-    protected AuditableEntity() => Id = Guid.NewGuid();
 }

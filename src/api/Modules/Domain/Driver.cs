@@ -3,7 +3,7 @@ using Skittles.Framework.Core.Domain.Contracts;
 
 namespace Skittles.WebApi.Domain;
 
-public class Driver : AuditableEntity<(Guid PlayerId, Guid EventId)>, IAggregateRoot
+public class Driver : BaseEntity, IAggregateRoot
 {
     public Guid PlayerId { get; private set; }
     public Guid EventId { get; private set; }
@@ -15,7 +15,8 @@ public class Driver : AuditableEntity<(Guid PlayerId, Guid EventId)>, IAggregate
     {
         var driver = new Driver
         {
-            Id = (playerId, eventId)
+            PlayerId = playerId,
+            EventId = eventId
         };
 
         //driver.QueueDomainEvent(new DriverCreated() { Driver = driver });

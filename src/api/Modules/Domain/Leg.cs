@@ -3,8 +3,9 @@ using Skittles.Framework.Core.Domain.Contracts;
 
 namespace Skittles.WebApi.Domain;
 
-public class Leg : AuditableEntity, IAggregateRoot
+public class Leg : BaseEntity, IAggregateRoot, IKeyedEntity
 {
+    public Guid Id { get; private set; }
     public Guid EventId { get; private set; }
     public byte Number { get; private set; }
 

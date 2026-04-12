@@ -4,16 +4,24 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Skittles.WebApi.Infrastructure.Persistence.Configurations;
 
-internal sealed class EventConfiguration : IEntityTypeConfiguration<Event>
+internal sealed class EventConfiguration : KeyedEntityConfiguration<Event>
 {
-    public void Configure(EntityTypeBuilder<Event> builder)
+    public override void Configure(EntityTypeBuilder<Event> builder)
     {
-        builder.HasKey(x => x.Id);
+        base.Configure(builder);
         builder.HasOne(x => x.Season)
             .WithMany(p => p.Events)
             .HasForeignKey(x => x.SeasonId)
             .OnDelete(DeleteBehavior.Cascade);
-        builder.Property(x => x.Opponent).HasMaxLength(100);
+        builder.HasOne(x => x.Venue)
+            .WithMany(p => p.HostedEvents)
+            .HasForeignKey(x => x.VenueId)
+            .OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(x => x.Opponent)
+            .WithMany(p => p.OppositionEvents)
+            .HasForeignKey(x => x.OpponentId)
+            .OnDelete(DeleteBehavior.NoAction);
         builder.Property(x => x.Description).HasMaxLength(100);
+        builder.HasIndex(x => new { x.SeasonId, x.Description }).IsUnique();
     }
 }
