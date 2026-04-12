@@ -5,10 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Skittles.Framework.Core.Domain;
 
-public abstract class BaseEntity<TId> : IEntity<TId>
+public abstract class BaseEntity : IEntity
 {
-    public TId Id { get; protected init; } = default!;
-
     [NotMapped]
     public Collection<DomainEvent> DomainEvents { get; } = [];
 
@@ -17,9 +15,4 @@ public abstract class BaseEntity<TId> : IEntity<TId>
         if (!DomainEvents.Contains(@event))
             DomainEvents.Add(@event);
     }
-}
-
-public abstract class BaseEntity : BaseEntity<Guid>
-{
-    protected BaseEntity() => Id = Guid.NewGuid();
 }

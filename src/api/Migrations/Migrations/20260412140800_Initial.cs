@@ -6,21 +6,40 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Skittles.WebApi.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class Expanddb : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Players",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Nickname = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CanDrive = table.Column<bool>(type: "bit", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    LastDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LastDeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastUndeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LastUndeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Players", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Seasons",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Year = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,54 +47,26 @@ namespace Skittles.WebApi.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Registrations",
-                columns: table => new
-                {
-                    PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SeasonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Registrations", x => new { x.PlayerId, x.SeasonId });
-                    table.ForeignKey(
-                        name: "FK_Registrations_Players_PlayerId",
-                        column: x => x.PlayerId,
-                        principalTable: "Players",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Registrations_Seasons_SeasonId",
-                        column: x => x.SeasonId,
-                        principalTable: "Seasons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Weeks",
+                name: "Events",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SeasonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Number = table.Column<byte>(type: "tinyint", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
-                    WeekType = table.Column<int>(type: "int", nullable: false),
+                    EventType = table.Column<byte>(type: "tinyint", nullable: false),
                     IsAway = table.Column<bool>(type: "bit", nullable: false),
-                    Opponent = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Opponent = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Weeks", x => x.Id);
+                    table.PrimaryKey("PK_Events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Weeks_Seasons_SeasonId",
+                        name: "FK_Events_Seasons_SeasonId",
                         column: x => x.SeasonId,
                         principalTable: "Seasons",
                         principalColumn: "Id",
@@ -87,25 +78,45 @@ namespace Skittles.WebApi.Migrations.Migrations
                 columns: table => new
                 {
                     PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    WeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Drivers", x => new { x.PlayerId, x.WeekId });
+                    table.PrimaryKey("PK_Drivers", x => new { x.PlayerId, x.EventId });
+                    table.ForeignKey(
+                        name: "FK_Drivers_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Drivers_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Holiday",
+                columns: table => new
+                {
+                    PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Holiday", x => new { x.PlayerId, x.EventId });
                     table.ForeignKey(
-                        name: "FK_Drivers_Weeks_WeekId",
-                        column: x => x.WeekId,
-                        principalTable: "Weeks",
+                        name: "FK_Holiday_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Holiday_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -115,20 +126,16 @@ namespace Skittles.WebApi.Migrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    WeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Number = table.Column<byte>(type: "tinyint", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Number = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Legs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Legs_Weeks_WeekId",
-                        column: x => x.WeekId,
-                        principalTable: "Weeks",
+                        name: "FK_Legs_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -142,7 +149,7 @@ namespace Skittles.WebApi.Migrations.Migrations
                     Value = table.Column<byte>(type: "tinyint", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -163,29 +170,35 @@ namespace Skittles.WebApi.Migrations.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Drivers_WeekId",
+                name: "IX_Drivers_EventId",
                 table: "Drivers",
-                column: "WeekId");
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Legs_WeekId",
-                table: "Legs",
-                column: "WeekId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Registrations_SeasonId",
-                table: "Registrations",
+                name: "IX_Events_SeasonId",
+                table: "Events",
                 column: "SeasonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Holiday_EventId",
+                table: "Holiday",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Legs_EventId",
+                table: "Legs",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Players_Nickname",
+                table: "Players",
+                column: "Nickname",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Scores_LegId",
                 table: "Scores",
                 column: "LegId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Weeks_SeasonId",
-                table: "Weeks",
-                column: "SeasonId");
         }
 
         /// <inheritdoc />
@@ -195,7 +208,7 @@ namespace Skittles.WebApi.Migrations.Migrations
                 name: "Drivers");
 
             migrationBuilder.DropTable(
-                name: "Registrations");
+                name: "Holiday");
 
             migrationBuilder.DropTable(
                 name: "Scores");
@@ -204,7 +217,10 @@ namespace Skittles.WebApi.Migrations.Migrations
                 name: "Legs");
 
             migrationBuilder.DropTable(
-                name: "Weeks");
+                name: "Players");
+
+            migrationBuilder.DropTable(
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Seasons");

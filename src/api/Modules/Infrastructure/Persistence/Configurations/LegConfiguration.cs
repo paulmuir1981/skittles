@@ -4,14 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Skittles.WebApi.Infrastructure.Persistence.Configurations;
 
-internal sealed class LegConfiguration : IEntityTypeConfiguration<Leg>
+internal sealed class LegConfiguration : KeyedEntityConfiguration<Leg>
 {
-    public void Configure(EntityTypeBuilder<Leg> builder)
+    public override void Configure(EntityTypeBuilder<Leg> builder)
     {
-        builder.HasKey(x => x.Id);
+        base.Configure(builder);
         builder.HasOne(x => x.Event)
             .WithMany(p => p.Legs)
             .HasForeignKey(x => x.EventId)
             .OnDelete(DeleteBehavior.Cascade);
+        builder.HasIndex(x => new { x.EventId, x.Number }).IsUnique();
     }
 }

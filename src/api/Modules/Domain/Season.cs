@@ -3,8 +3,9 @@ using Skittles.Framework.Core.Domain.Contracts;
 
 namespace Skittles.WebApi.Domain;
 
-public class Season : AuditableEntity, IAggregateRoot
+public class Season : BaseEntity, IAggregateRoot, IKeyedEntity
 {
+    public Guid Id { get; private set; }
     public int Year { get; private set; }
 
     public IReadOnlyList<Event> Events { get; private set; } = [];

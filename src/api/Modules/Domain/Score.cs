@@ -3,7 +3,7 @@ using Skittles.Framework.Core.Domain.Contracts;
 
 namespace Skittles.WebApi.Domain;
 
-public class Score : AuditableEntity<(Guid PlayerId, Guid LegId)>, IAggregateRoot
+public class Score : AuditableEntity, IAggregateRoot
 {
     public Guid PlayerId { get; private set; }
     public Guid LegId { get; private set; }
@@ -16,7 +16,6 @@ public class Score : AuditableEntity<(Guid PlayerId, Guid LegId)>, IAggregateRoo
     {
         var score = new Score
         {
-            Id = (playerId, legId),
             PlayerId = playerId,
             LegId = legId,
             Value = value

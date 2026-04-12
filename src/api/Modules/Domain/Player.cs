@@ -3,12 +3,14 @@ using Skittles.Framework.Core.Domain.Contracts;
 
 namespace Skittles.WebApi.Domain;
 
-public class Player : AuditableEntity, IAggregateRoot
+public class Player : AuditableEntity, IAggregateRoot, IKeyedEntity, ISoftDeletable
 {
+    public Guid Id { get; private set; }
     public string Name { get; private set; } = default!;
     public string Nickname { get; private set; } = default!;
     public bool CanDrive { get; private set; }
     public bool IsDeleted { get; private set; }
+
     public IReadOnlyList<Score> Scores { get; private set; } = [];
     public IReadOnlyList<Driver> Drivers { get; private set; } = [];
     public IReadOnlyList<Holiday> Holidays { get; private set; } = [];
