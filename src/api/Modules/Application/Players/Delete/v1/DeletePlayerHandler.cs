@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Skittles.Framework.Core.Persistence;
 using Skittles.WebApi.Domain;
 using Skittles.WebApi.Domain.Exceptions;
+using Skittles.WebApi.Domain.Specifications;
 
 namespace Skittles.WebApi.Application.Players.Delete.v1;
 
@@ -15,7 +16,7 @@ public sealed class DeletePlayerHandler(
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        var player = await repository.GetByIdAsync(request.Id, cancellationToken)
+        var player = await repository.FirstOrDefaultAsync(new IdSpec(request.Id), cancellationToken)
             ?? throw new PlayerNotFoundException(request.Id);
 
         await repository.DeleteAsync(player, cancellationToken);

@@ -35,8 +35,11 @@ public class GivenValidRequest : GivenCreatePlayerRequest
     [Test]
     public void ThenResponseContainsCreatedPlayerId()
     {
-        Assert.That(_createdPlayerId, Is.Not.EqualTo(Guid.Empty));
-        Assert.That(_node!["id"]!.GetValue<Guid>(), Is.EqualTo(_createdPlayerId));
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(_createdPlayerId, Is.Not.EqualTo(Guid.Empty));
+            Assert.That(_node!["id"]!.GetValue<Guid>(), Is.EqualTo(_createdPlayerId));
+        }
     }
 
     [Test]

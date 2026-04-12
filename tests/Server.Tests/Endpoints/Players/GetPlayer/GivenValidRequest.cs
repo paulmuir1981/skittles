@@ -26,7 +26,7 @@ public class GivenValidRequest : GivenGetPlayerRequest
 
         ctx.Players.Add(player);
         ctx.SaveChanges();
-        _fakeId = player.Id;
+        _fakeId = player.PlayerId;
     }
 
     [Test]

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Skittles.Framework.Core.Persistence;
 using Skittles.WebApi.Domain;
 using Skittles.WebApi.Domain.Exceptions;
+using Skittles.WebApi.Domain.Specifications;
 
 namespace Skittles.WebApi.Application.Players.Create.v1;
 
@@ -35,8 +36,8 @@ public sealed class CreatePlayerHandler(
 
         var player = Player.Create(request.Name, nickname, request.CanDrive, request.IsDeleted);
         await repository.AddAsync(player, cancellationToken);
-        logger.LogInformation("player created {PlayerId}", player.Id);
+        logger.LogInformation("player created {PlayerId}", player.PlayerId);
 
-        return new CreatePlayerResponse(player.Id);
+        return new CreatePlayerResponse(player.PlayerId);
     }
 }

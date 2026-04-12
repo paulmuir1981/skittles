@@ -3,8 +3,9 @@ using Skittles.Framework.Core.Domain.Contracts;
 
 namespace Skittles.WebApi.Domain;
 
-public class Player : AuditableEntity, IAggregateRoot
+public class Player : AuditableEntity<long>, IAggregateRoot
 {
+    public Guid PlayerId { get; private set; }
     public string Name { get; private set; } = default!;
     public string Nickname { get; private set; } = default!;
     public bool CanDrive { get; private set; }
@@ -17,7 +18,11 @@ public class Player : AuditableEntity, IAggregateRoot
     {
         var player = new Player
         {
-            Name = name, Nickname = nickname ?? name, CanDrive = canDrive, IsDeleted = isDeleted
+            PlayerId = Guid.NewGuid(),
+            Name = name, 
+            Nickname = nickname ?? name, 
+            CanDrive = canDrive, 
+            IsDeleted = isDeleted
         };
 
         //player.QueueDomainEvent(new PlayerCreated() { Player = player });

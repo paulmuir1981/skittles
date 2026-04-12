@@ -63,8 +63,8 @@ public class GivenValidRequest : ServerTestBase
         ctx.Players.Add(player2);
         ctx.SaveChanges();
 
-        _playerId1 = player1.Id;
-        _playerId2 = player2.Id;
+        _playerId1 = player1.PlayerId;
+        _playerId2 = player2.PlayerId;
     }
 
     [Test]

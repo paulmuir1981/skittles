@@ -28,11 +28,11 @@ public static class PlayerAssertions
         Guid expectedId,
         (string Name, string Nickname, bool CanDrive, bool IsDeleted) expectedData)
     {
-        var player = context.Players.FirstOrDefault(p => p.Id == expectedId);
+        var player = context.Players.FirstOrDefault(p => p.PlayerId == expectedId);
         using (Assert.EnterMultipleScope())
         {
             Assert.That(player, Is.Not.Null);
-            Assert.That(player!.Id, Is.EqualTo(expectedId));
+            Assert.That(player!.PlayerId, Is.EqualTo(expectedId));
             Assert.That(player.Name, Is.EqualTo(expectedData.Name));
             Assert.That(player.Nickname, Is.EqualTo(expectedData.Nickname));
             Assert.That(player.CanDrive, Is.EqualTo(expectedData.CanDrive));
@@ -42,7 +42,7 @@ public static class PlayerAssertions
 
     public static void AssertPlayerDeletedFromDb(SkittlesDbContext context, Guid playerId)
     {
-        var player = context.Players.FirstOrDefault(p => p.Id == playerId);
+        var player = context.Players.FirstOrDefault(p => p.PlayerId == playerId);
         Assert.That(player, Is.Null, $"Player {playerId} should be deleted from database");
     }
 }

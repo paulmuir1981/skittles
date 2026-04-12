@@ -29,7 +29,7 @@ public class GivenPartialUpdate : GivenUpdatePlayerRequest
 
         context.Players.Add(player);
         context.SaveChanges();
-        _playerId = player.Id;
+        _playerId = player.PlayerId;
     }
 
     [OneTimeSetUp]
@@ -52,7 +52,7 @@ public class GivenPartialUpdate : GivenUpdatePlayerRequest
         using var scope = Factory!.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<SkittlesDbContext>();
 
-        var player = context.Players.FirstOrDefault(p => p.Id == _playerId);
+        var player = context.Players.FirstOrDefault(p => p.PlayerId == _playerId);
 
         using (Assert.EnterMultipleScope())
         {

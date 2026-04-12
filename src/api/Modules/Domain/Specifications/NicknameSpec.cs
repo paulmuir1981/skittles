@@ -1,6 +1,6 @@
 using Ardalis.Specification;
 
-namespace Skittles.WebApi.Domain;
+namespace Skittles.WebApi.Domain.Specifications;
 
 public sealed class NicknameSpec : Specification<Player>
 {

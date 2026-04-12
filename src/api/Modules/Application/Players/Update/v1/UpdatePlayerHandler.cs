@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Skittles.Framework.Core.Persistence;
 using Skittles.WebApi.Domain;
 using Skittles.WebApi.Domain.Exceptions;
+using Skittles.WebApi.Domain.Specifications;
 
 namespace Skittles.WebApi.Application.Players.Update.v1;
 
@@ -16,7 +17,7 @@ public sealed class UpdatePlayerHandler(
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        var player = await repository.GetByIdAsync(request.Id, cancellationToken) 
+        var player = await repository.FirstOrDefaultAsync(new IdSpec(request.Id), cancellationToken)
             ?? throw new PlayerNotFoundException(request.Id);
 
         var newNickname = request.Nickname ?? player.Nickname;
@@ -36,8 +37,8 @@ public sealed class UpdatePlayerHandler(
 
         var updatedPlayer = player.Update(request.Name, request.Nickname, request.CanDrive, request.IsDeleted);
         await repository.UpdateAsync(updatedPlayer, cancellationToken);
-        logger.LogInformation("player with id : {PlayerId} updated.", player.Id);
+        logger.LogInformation("player with id : {PlayerId} updated.", player.PlayerId);
 
-        return new UpdatePlayerResponse(player.Id);
+        return new UpdatePlayerResponse(player.PlayerId);
     }
 }

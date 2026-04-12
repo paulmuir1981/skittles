@@ -31,7 +31,7 @@ public class GivenValidRequest : GivenUpdatePlayerRequest
 
         context.Players.Add(player);
         context.SaveChanges();
-        _playerId = player.Id;
+        _playerId = player.PlayerId;
     }
 
     [OneTimeSetUp]

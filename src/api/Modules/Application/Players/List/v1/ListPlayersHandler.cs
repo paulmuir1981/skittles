@@ -26,7 +26,7 @@ public sealed class ListPlayersHandler(
             {
                 Query.Where(x => !x.IsDeleted);
             }
-            Query.Select(x => new PlayerResponse(x.Id, x.Name, x.Nickname, x.CanDrive, x.IsDeleted));
+            Query.Select(x => new PlayerResponse(x.PlayerId, x.Name, x.Nickname, x.CanDrive, x.IsDeleted));
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skittles.WebApi.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using Skittles.WebApi.Infrastructure.Persistence;
 namespace Skittles.WebApi.Migrations.Migrations
 {
     [DbContext(typeof(SkittlesDbContext))]
-    partial class SkittlesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260412083110_DropReg")]
+    partial class DropReg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,8 +27,8 @@ namespace Skittles.WebApi.Migrations.Migrations
 
             modelBuilder.Entity("Skittles.WebApi.Domain.Driver", b =>
                 {
-                    b.Property<long>("PlayerId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("PlayerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier");
@@ -97,8 +100,8 @@ namespace Skittles.WebApi.Migrations.Migrations
 
             modelBuilder.Entity("Skittles.WebApi.Domain.Holiday", b =>
                 {
-                    b.Property<long>("PlayerId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("PlayerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier");
@@ -158,11 +161,9 @@ namespace Skittles.WebApi.Migrations.Migrations
 
             modelBuilder.Entity("Skittles.WebApi.Domain.Player", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("CanDrive")
                         .HasColumnType("bit");
@@ -192,9 +193,6 @@ namespace Skittles.WebApi.Migrations.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("PlayerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Nickname")
@@ -205,8 +203,8 @@ namespace Skittles.WebApi.Migrations.Migrations
 
             modelBuilder.Entity("Skittles.WebApi.Domain.Score", b =>
                 {
-                    b.Property<long>("PlayerId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("PlayerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("LegId")
                         .HasColumnType("uniqueidentifier");
