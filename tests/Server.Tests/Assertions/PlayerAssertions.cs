@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Skittles.WebApi.Infrastructure.Persistence;
 using System.Text.Json.Nodes;

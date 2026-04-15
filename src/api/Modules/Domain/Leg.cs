@@ -10,7 +10,7 @@ public class Leg : BaseEntity, IAggregateRoot, IKeyedEntity
     public byte Number { get; private set; }
 
     public Event Event { get; private set; } = null!;
-    public IReadOnlyList<Score> Scores { get; private set; } = [];
+    public ICollection<Score> Scores { get; private set; } = [];
 
     public static Leg Create(Guid eventId, byte number)
     {

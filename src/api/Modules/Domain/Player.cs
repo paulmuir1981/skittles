@@ -11,9 +11,9 @@ public class Player : AuditableEntity, IAggregateRoot, IKeyedEntity, ISoftDeleta
     public bool CanDrive { get; private set; }
     public bool IsDeleted { get; private set; }
 
-    public IReadOnlyList<Score> Scores { get; private set; } = [];
-    public IReadOnlyList<Driver> Drivers { get; private set; } = [];
-    public IReadOnlyList<Holiday> Holidays { get; private set; } = [];
+    public ICollection<Score> Scores { get; private set; } = [];
+    public ICollection<Driver> Drivers { get; private set; } = [];
+    public ICollection<Holiday> Holidays { get; private set; } = [];
 
     public static Player Create(string name, string? nickname = null, bool canDrive = false, bool isDeleted = false)
     {

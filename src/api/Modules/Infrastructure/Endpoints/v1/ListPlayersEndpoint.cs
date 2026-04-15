@@ -11,7 +11,7 @@ public static class ListPlayersEndpoint
     internal static RouteHandlerBuilder MapListPlayersEndpoint(this IEndpointRouteBuilder endpoints)
     {
         return endpoints
-            .MapGet("/", async (ISender sender, bool includeDeleted, CancellationToken ct) =>
+            .MapGet("/", async (ISender sender, CancellationToken ct, bool includeDeleted = false) =>
             {
                 var response = await sender.Send(new ListPlayersRequest(includeDeleted), ct);
                 return Results.Ok(response);
