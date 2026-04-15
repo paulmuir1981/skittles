@@ -43,6 +43,7 @@ public static class Extensions
             .AddApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
             })
             .EnableApiVersionBinding();
         return services;

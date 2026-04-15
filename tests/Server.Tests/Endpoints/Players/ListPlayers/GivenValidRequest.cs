@@ -8,6 +8,7 @@ using System.Text.Json.Nodes;
 
 namespace Skittles.Server.Tests.Endpoints.Players.ListPlayers;
 
+[TestFixture(null, 1)]
 [TestFixture(false, 1)]
 [TestFixture(true, 2)]
 public class GivenValidRequest : ServerTestBase
@@ -15,7 +16,7 @@ public class GivenValidRequest : ServerTestBase
     private Guid _playerId1;
     private Guid _playerId2;
 
-    private readonly bool _includeDeleted;
+    private readonly bool? _includeDeleted;
     private readonly int _expectedCount;
     private HttpResponseMessage? _response;
     private JsonNode? _node;
@@ -26,7 +27,7 @@ public class GivenValidRequest : ServerTestBase
     private static readonly (string Name, string Nickname, bool CanDrive, bool IsDeleted) Player2Data =
         ("I am another name", "I am another nickname", true, true);
 
-    public GivenValidRequest(bool includeDeleted, int expectedCount)
+    public GivenValidRequest(bool? includeDeleted, int expectedCount)
     {
         _includeDeleted = includeDeleted;
         _expectedCount = expectedCount;
@@ -35,7 +36,8 @@ public class GivenValidRequest : ServerTestBase
     [OneTimeSetUp]
     public async Task WhenRequested()
     {
-        _response = await HttpClient!.GetAsync($"/api/v1/players?includeDeleted={_includeDeleted}");
+        var path = $"/api/v1/players{(_includeDeleted.HasValue ? $"?includeDeleted={_includeDeleted.Value}" : "")}";
+        _response = await HttpClient!.GetAsync(path);
         var json = await _response.Content.ReadAsStringAsync();
         _node = JsonNode.Parse(json)!;
     }
@@ -88,7 +90,7 @@ public class GivenValidRequest : ServerTestBase
 
         PlayerAssertions.AssertPlayerResponse(sorted[0]!, _playerId1, Player1Data);
 
-        if (_includeDeleted)
+        if (_includeDeleted == true)
         {
             PlayerAssertions.AssertPlayerResponse(sorted[1]!, _playerId2, Player2Data);
         }

@@ -8,7 +8,7 @@ public class Season : BaseEntity, IAggregateRoot, IKeyedEntity
     public Guid Id { get; private set; }
     public int Year { get; private set; }
 
-    public IReadOnlyList<Event> Events { get; private set; } = [];
+    public ICollection<Event> Events { get; private set; } = [];
 
     public static Season Create(int year)
     {

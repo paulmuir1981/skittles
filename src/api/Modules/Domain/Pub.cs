@@ -9,8 +9,8 @@ public class Pub : AuditableEntity, IAggregateRoot, IKeyedEntity, ISoftDeletable
     public string Name { get; private set; } = default!;
     public string Postcode { get; private set; } = default!;
     public bool IsDeleted { get; private set; }
-    public IReadOnlyList<Event> HostedEvents { get; private set; } = [];
-    public IReadOnlyList<Event> OppositionEvents { get; private set; } = [];
+    public ICollection<Event> HostedEvents { get; private set; } = [];
+    public ICollection<Event> OppositionEvents { get; private set; } = [];
 
     public static Pub Create(string name, string postcode, bool isDeleted = false)
     {

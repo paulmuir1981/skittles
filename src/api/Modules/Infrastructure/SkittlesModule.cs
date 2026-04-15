@@ -25,6 +25,10 @@ public static class SkittlesModule
             playerGroup.MapCreatePlayerEndpoint();
             playerGroup.MapUpdatePlayerEndpoint();
             playerGroup.MapDeletePlayerEndpoint();
+
+            var eventGroup = app.MapGroup("events").WithTags("events");
+            eventGroup.MapCreateEventEndpoint();
+            eventGroup.MapListEventsEndpoint();
         }
     }
 
@@ -33,6 +37,8 @@ public static class SkittlesModule
         ArgumentNullException.ThrowIfNull(builder);
         builder.Services.BindDbContext<SkittlesDbContext>();
         builder.Services.AddScoped<IDbInitializer, SkittlesDbInitializer>();
+        builder.Services.AddKeyedScoped<IRepository<Event>, SkittlesRepository<Event>>("skittles:events");
+        builder.Services.AddKeyedScoped<IReadRepository<Event>, SkittlesRepository<Event>>("skittles:events");
         builder.Services.AddKeyedScoped<IRepository<Player>, SkittlesRepository<Player>>("skittles:players");
         builder.Services.AddKeyedScoped<IReadRepository<Player>, SkittlesRepository<Player>>("skittles:players");
         builder.Services.AddKeyedScoped<IRepository<Season>, SkittlesRepository<Season>>("skittles:seasons");
