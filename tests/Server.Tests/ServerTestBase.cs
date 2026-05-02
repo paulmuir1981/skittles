@@ -61,6 +61,9 @@ public abstract class ServerTestBase
         using var scope = Factory!.Services.CreateScope();
         var ctx = scope.ServiceProvider.GetRequiredService<SkittlesDbContext>();
         ctx.Players.RemoveRange(ctx.Players);
+        ctx.Pubs.RemoveRange(ctx.Pubs);
+        ctx.Events.RemoveRange(ctx.Events);
+        ctx.Seasons.RemoveRange(ctx.Seasons);
         ctx.SaveChanges();
         Factory?.Dispose();
         HttpClient?.Dispose();
