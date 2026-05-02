@@ -29,6 +29,10 @@ public static class SkittlesModule
             var eventGroup = app.MapGroup("events").WithTags("events");
             eventGroup.MapCreateEventEndpoint();
             eventGroup.MapListEventsEndpoint();
+
+            var pubGroup = app.MapGroup("pubs").WithTags("pubs");
+            pubGroup.MapCreatePubEndpoint();
+            pubGroup.MapListPubsEndpoint();
         }
     }
 
@@ -43,6 +47,8 @@ public static class SkittlesModule
         builder.Services.AddKeyedScoped<IReadRepository<Player>, SkittlesRepository<Player>>("skittles:players");
         builder.Services.AddKeyedScoped<IRepository<Season>, SkittlesRepository<Season>>("skittles:seasons");
         builder.Services.AddKeyedScoped<IReadRepository<Season>, SkittlesRepository<Season>>("skittles:seasons");
+        builder.Services.AddKeyedScoped<IRepository<Pub>, SkittlesRepository<Pub>>("skittles:pubs");
+        builder.Services.AddKeyedScoped<IReadRepository<Pub>, SkittlesRepository<Pub>>("skittles:pubs");
         return builder;
     }
 

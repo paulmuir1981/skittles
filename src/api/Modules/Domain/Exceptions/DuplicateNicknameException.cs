@@ -8,6 +8,5 @@ public sealed class DuplicateNicknameException : SkittlesException
     public DuplicateNicknameException(string nickname)
         : base($"A player with nickname '{nickname}' already exists", 
                [$"Nickname '{nickname}' is already in use"],
-               HttpStatusCode.Conflict)
-    { }
+               HttpStatusCode.Conflict) { }
 }
