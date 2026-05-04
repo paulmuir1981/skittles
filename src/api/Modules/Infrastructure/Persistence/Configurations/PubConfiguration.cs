@@ -3,7 +3,7 @@ using Skittles.WebApi.Domain;
 
 namespace Skittles.WebApi.Infrastructure.Persistence.Configurations;
 
-internal sealed class PubConfiguration : KeyedEntityConfiguration<Pub>
+internal sealed class PubConfiguration : SoftDeletableKeyedEntityConfiguration<Pub>
 {
     public override void Configure(EntityTypeBuilder<Pub> builder)
     {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Skittles.WebApi.Infrastructure.Persistence.Configurations;
 
-internal sealed class EventConfiguration : KeyedEntityConfiguration<Event>
+internal sealed class EventConfiguration : SoftDeletableKeyedEntityConfiguration<Event>
 {
     public override void Configure(EntityTypeBuilder<Event> builder)
     {
