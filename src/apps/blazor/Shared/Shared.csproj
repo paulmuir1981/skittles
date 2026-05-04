@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Skittles.Blazor.Shared</RootNamespace>
     <AssemblyName>Skittles.Blazor.Shared</AssemblyName>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
 </Project>
