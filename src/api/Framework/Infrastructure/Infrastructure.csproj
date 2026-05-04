@@ -7,7 +7,6 @@
     <RootNamespace>Skittles.Framework.Infrastructure</RootNamespace>
     <AssemblyName>Skittles.Framework.Infrastructure</AssemblyName>
     <IsAspireSharedProject>true</IsAspireSharedProject>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

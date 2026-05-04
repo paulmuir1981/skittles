@@ -6,7 +6,6 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Skittles.Blazor.Infrastructure</RootNamespace>
     <AssemblyName>Skittles.Blazor.Infrastructure</AssemblyName>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <ItemGroup>

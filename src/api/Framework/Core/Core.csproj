@@ -6,7 +6,6 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Skittles.Framework.Core</RootNamespace>
     <AssemblyName>Skittles.Framework.Core</AssemblyName>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <ItemGroup>

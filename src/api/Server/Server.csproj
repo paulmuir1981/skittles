@@ -7,7 +7,6 @@
     <RootNamespace>Skittles.WebApi.Server</RootNamespace>
     <AssemblyName>Skittles.WebApi.Server</AssemblyName>
     <ContainerUser>root</ContainerUser>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <PropertyGroup>
     <ContainerRepository>webapi</ContainerRepository>

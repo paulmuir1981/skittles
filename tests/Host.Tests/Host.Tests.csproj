@@ -8,7 +8,6 @@
     <IsTestProject>true</IsTestProject>
     <RootNamespace>Skittles.Host.Tests</RootNamespace>
     <AssemblyName>Skittles.Host.Tests</AssemblyName>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
     <ItemGroup>

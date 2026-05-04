@@ -6,7 +6,6 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Skittles.WebApi.Domain</RootNamespace>
     <AssemblyName>Skittles.WebApi.Domain</AssemblyName>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <ItemGroup>

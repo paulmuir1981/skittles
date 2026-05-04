@@ -7,7 +7,6 @@
 	<IsTestProject>true</IsTestProject>
 	<RootNamespace>Skittles.Server.Tests</RootNamespace>
 	<AssemblyName>Skittles.Server.Tests</AssemblyName>
-	<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <ItemGroup>
