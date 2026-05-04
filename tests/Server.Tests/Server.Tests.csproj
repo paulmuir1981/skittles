@@ -1,31 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <IsTestProject>true</IsTestProject>
-    <RootNamespace>Skittles.Server.Tests</RootNamespace>
-    <AssemblyName>Skittles.Server.Tests</AssemblyName>
+	<TargetFramework>net10.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<IsTestProject>true</IsTestProject>
+	<RootNamespace>Skittles.Server.Tests</RootNamespace>
+	<AssemblyName>Skittles.Server.Tests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-	  <PackageReference Include="AutoFixture" Version="4.18.1" />
-	  <PackageReference Include="coverlet.collector" Version="10.0.0">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  <PackageReference Include="coverlet.collector">
+		<PrivateAssets>all</PrivateAssets>
+		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
-	  <PackageReference Include="NUnit" Version="4.6.0" />
-	  <PackageReference Include="NUnit.Analyzers" Version="4.13.0">
+	  <PackageReference Include="Microsoft.NET.Test.Sdk" />
+	  <PackageReference Include="NUnit" />
+	  <PackageReference Include="NUnit.Analyzers">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="NUnit3TestAdapter" Version="6.2.0">
+	  <PackageReference Include="NUnit3TestAdapter">
 		  <TreatAsUsed>true</TreatAsUsed>
 	  </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.7" />
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
   </ItemGroup>
 
   <ItemGroup>
