@@ -1,6 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <Sdk Name="Aspire.AppHost.Sdk" Version="9.5.2" />
+<Project Sdk="Aspire.AppHost.Sdk/13.3.3">
 
   <PropertyGroup>
     <RootNamespace>Skittles.Aspire</RootNamespace>
@@ -16,10 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\api\Server\Server.csproj" />
     <ProjectReference Include="..\..\apps\blazor\Client\Client.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" />
   </ItemGroup>
 
 </Project>
