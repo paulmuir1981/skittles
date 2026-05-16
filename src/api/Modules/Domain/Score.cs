@@ -7,12 +7,12 @@ public class Score : AuditableEntity, IAggregateRoot
 {
     public Guid PlayerId { get; private set; }
     public Guid LegId { get; private set; }
-    public byte Value { get; private set; }
+    public byte? Value { get; private set; }
 
     public Player Player { get; private set; } = null!;
     public Leg Leg { get; private set; } = null!;
 
-    public static Score Create(Guid playerId, Guid legId, byte value)
+    public static Score Create(Guid playerId, Guid legId, byte? value)
     {
         var score = new Score
         {
