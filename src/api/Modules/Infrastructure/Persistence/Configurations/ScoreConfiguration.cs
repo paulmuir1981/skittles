@@ -17,5 +17,6 @@ internal sealed class ScoreConfiguration : IEntityTypeConfiguration<Score>
             .WithMany(w => w.Scores)
             .HasForeignKey(x => x.LegId)
             .OnDelete(DeleteBehavior.Cascade);
+        builder.Property(b => b.Value).HasDefaultValue((byte?)null);
     }
 }
