@@ -4,6 +4,16 @@ using Skittles.Framework.Core.Domain.Contracts;
 
 namespace Skittles.WebApi.Infrastructure.Persistence.Configurations;
 
+internal static class AuditableEntityConfigurationExtensions
+{
+    internal static void ConfigureAuditable<TEntity>(this EntityTypeBuilder<TEntity> builder)
+        where TEntity : class, IAuditable
+    {
+        builder.Property(b => b.Created).HasDefaultValueSql("GETUTCDATE()");
+        builder.Property(b => b.CreatedBy).HasDefaultValue(Guid.Empty);
+    }
+}
+
 internal abstract class KeyedEntityConfiguration<TEntity, TId> : IEntityTypeConfiguration<TEntity>
     where TEntity : class, IKeyedEntity<TId>
 {
@@ -29,8 +39,7 @@ internal abstract class AuditableEntityConfiguration<TEntity> : KeyedEntityConfi
     public override void Configure(EntityTypeBuilder<TEntity> builder)
     {
         base.Configure(builder);
-        builder.Property(b => b.Created).HasDefaultValueSql("GETUTCDATE()");
-        builder.Property(b => b.CreatedBy).HasDefaultValue(Guid.Empty);
+        builder.ConfigureAuditable();
     }
 }
 
@@ -41,5 +50,14 @@ internal abstract class SoftDeletableKeyedEntityConfiguration<TEntity> : Auditab
     {
         base.Configure(builder);
         builder.Property(b => b.IsDeleted).HasDefaultValue(false);
+    }
+}
+
+internal abstract class NonKeyedAuditableEntityConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
+    where TEntity : class, IAuditable
+{
+    public virtual void Configure(EntityTypeBuilder<TEntity> builder)
+    {
+        builder.ConfigureAuditable();
     }
 }

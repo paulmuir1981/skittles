@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Skittles.WebApi.Infrastructure.Persistence.Configurations;
 
-internal sealed class ScoreConfiguration : IEntityTypeConfiguration<Score>
+internal sealed class ScoreConfiguration : NonKeyedAuditableEntityConfiguration<Score>
 {
-    public void Configure(EntityTypeBuilder<Score> builder)
+    public override void Configure(EntityTypeBuilder<Score> builder)
     {
+        base.Configure(builder);
         builder.HasKey(x => new { x.PlayerId, x.LegId });
         builder.HasOne(x => x.Player)
             .WithMany(p => p.Scores)
