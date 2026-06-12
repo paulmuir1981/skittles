@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MessagePack" />
     <ProjectReference Include="..\..\api\Server\Server.csproj" />
     <ProjectReference Include="..\..\apps\blazor\Client\Client.csproj" />
   </ItemGroup>
