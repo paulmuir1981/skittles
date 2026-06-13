@@ -6,17 +6,16 @@ namespace Skittles.WebApi.Domain;
 public class Holiday : BaseEntity, IAggregateRoot
 {
     public Guid PlayerId { get; private set; }
-    public Guid EventId { get; private set; }
+    public DateOnly Date { get; private set; }
 
     public Player Player { get; private set; } = null!;
-    public Event Event { get; private set; } = null!;
 
-    public static Holiday Create(Guid playerId, Guid eventId)
+    public static Holiday Create(Guid playerId, DateOnly date)
     {
         var holiday = new Holiday
         {
             PlayerId = playerId,
-            EventId = eventId
+            Date = date
         };
 
         //holiday.QueueDomainEvent(new HolidayCreated() { Holiday = holiday });
