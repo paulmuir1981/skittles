@@ -1,4 +1,4 @@
-<Project Sdk="Aspire.AppHost.Sdk/13.3.5">
+﻿<Project Sdk="Aspire.AppHost.Sdk/13.4.3">
 
   <PropertyGroup>
     <RootNamespace>Skittles.Aspire</RootNamespace>
@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MessagePack" />
     <ProjectReference Include="..\..\api\Server\Server.csproj" />
     <ProjectReference Include="..\..\apps\blazor\Client\Client.csproj" />
   </ItemGroup>
