@@ -1,8 +1,9 @@
 # skittles
 Skittles
 
-from skittles/src/api directory:
+from skittles\src\api directory:
 
+`cd src\api`
 `dotnet tool update --global dotnet-ef`
 
 `dotnet ef migrations add MigrationName --project Migrations --startup-project Server`
