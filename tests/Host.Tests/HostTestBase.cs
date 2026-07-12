@@ -37,7 +37,16 @@ public abstract class HostTestBase
     {
         if (App is not null)
         {
-            await App.DisposeAsync();
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+            try
+            {
+                await App.DisposeAsync().AsTask().WaitAsync(cts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                // Log this — confirms it's a disposal hang, not something else
+                Console.WriteLine("App.DisposeAsync() timed out after 30s");
+            }
         }
 
         HttpClient?.Dispose();
